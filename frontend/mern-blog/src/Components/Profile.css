@@ -1,0 +1,499 @@
+.user-profile-section {
+    padding: 15px;
+}
+
+.profile-section {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 12px;
+}
+
+
+
+.user-info h4 {
+    margin: 0 ;
+}
+
+.user-details {
+    background-color: beige;
+    border-radius: 10px;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.bio {
+    padding: 12px;
+}
+
+.user-profile-pic {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-top: 20px;
+}
+
+.user-profile-pic img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* From Uiverse.io by vinodjangid07 */ 
+.Btn {
+  width: 130px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(15, 15, 15);
+  border: none;
+  color: white;
+  font-weight: 600;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.103);
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+}
+
+.svgIcon {
+  width: 16px;
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.Btn::before {
+  width: 130px;
+  height: 130px;
+  position: absolute;
+  content: "";
+  background-color: white;
+  border-radius: 50%;
+  left: -100%;
+  top: 0;
+  transition-duration: .3s;
+  mix-blend-mode: difference;
+}
+
+.Btn:hover::before {
+  transition-duration: .3s;
+  transform: translate(100%,-50%);
+  border-radius: 0;
+}
+
+.Btn:active {
+  transform: translate(5px,5px);
+  transition-duration: .3s;
+}
+
+/* blogs posted  */
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.blogs-posted {
+    border-radius: 10px;
+    height: 85vh;
+    background-color: beige;
+}
+
+.blogs-posted-heading h5 {
+    margin-left: 22px;
+    position: relative;
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.underline {
+        height: 1px;
+    width: 115%;
+    background: black;
+    position: relative;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.socials {
+    display: flex;
+    gap: 10px;
+}
+
+.socials span:hover {
+    cursor: pointer;
+    transform: scale(1.3);
+    transition: all ease-in-out .2s;
+}
+.h5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+
+
+/* editing */
+
+
+
+.edit-section {
+    display: flex;
+    gap: 12px;
+}
+
+.edit-profile-pic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+}
+
+.edit-profile-pic img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.upload-section {
+    position: relative;
+    width: 100px;
+    height: 35px;
+}
+
+.edit-profile-pic .upload {
+    z-index: 1;
+    position: absolute;
+    border: none;
+    height: 35px;
+    width: 100px;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 22px;
+    color: white;
+    background: black;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.edit-profile-pic .input:hover {
+
+        cursor: pointer;
+        transform: scale(0.9);
+}
+.edit-profile-pic .input {
+    border: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.edit-profile {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.edit-input {
+        width: 95%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.edit-input >div {
+        display: flex;
+    gap: 12px;
+}
+
+.info {
+    font-size: 13px;
+    font-weight: 400;
+    word-spacing: 2px;
+}
+
+.bio-input {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    gap: 6px;
+}
+.bio-input textarea  {
+    padding: 10px;
+        background: #e0dfd5;
+    border: none;
+    height: 160px;
+    outline: none;
+    
+}
+
+.social-link {
+    width: 450px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    height: 40px;
+    border-radius: 3px;
+    background: #e0dfd5;
+        grid-auto-columns: 1fr 10fr;
+    grid-auto-flow: column;
+    padding: 4px;
+    gap: 12px;
+}
+
+.social-link input {
+        background: transparent;
+    position: relative;
+    height: 30px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    width: 90%;
+}
+
+.edit-socials  {
+        display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+    
+
+
+/* From Uiverse.io by doniaskima */ 
+.btn-17,
+.btn-17 *,
+.btn-17 :after,
+.btn-17 :before,
+.btn-17:after,
+.btn-17:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.btn-17 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  background-color: #000;
+  background-image: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-size: 100%;
+  font-weight: 900;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.btn-17:disabled {
+  cursor: default;
+}
+
+.btn-17:-moz-focusring {
+  outline: auto;
+}
+
+.btn-17 svg {
+  display: block;
+  vertical-align: middle;
+}
+
+.btn-17 [hidden] {
+  display: none;
+}
+
+.btn-17 {
+  border-radius: 99rem;
+  border-width: 2px;
+  padding: 0.8rem 3rem;
+  z-index: 0;
+}
+
+.btn-17,
+.btn-17 .text-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.btn-17 .text-container {
+  display: block;
+  mix-blend-mode: difference;
+}
+
+.btn-17 .text {
+  display: block;
+  position: relative;
+}
+
+.btn-17:hover .text {
+  -webkit-animation: move-up-alternate 0.3s forwards;
+  animation: move-up-alternate 0.3s forwards;
+}
+
+@-webkit-keyframes move-up-alternate {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(80%);
+  }
+
+  51% {
+    transform: translateY(-80%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes move-up-alternate {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(80%);
+  }
+
+  51% {
+    transform: translateY(-80%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.btn-17:after,
+.btn-17:before {
+  --skew: 0.2;
+  background: #fff;
+  content: "";
+  display: block;
+  height: 102%;
+  left: calc(-50% - 50% * var(--skew));
+  pointer-events: none;
+  position: absolute;
+  top: -104%;
+  transform: skew(calc(150deg * var(--skew))) translateY(var(--progress, 0));
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.btn-17:after {
+  --progress: 0%;
+  left: calc(50% + 50% * var(--skew));
+  top: 102%;
+  z-index: -1;
+}
+
+.btn-17:hover:before {
+  --progress: 100%;
+}
+
+.btn-17:hover:after {
+  --progress: -102%;
+}
+
+.update-btn {
+    width: 120px;
+    margin: auto;
+}
+
+
+.edit-userName>div {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  gap: 6px;
+  background-color: #e0dfd5;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.edit-userName>div img {
+  height: 20px;
+}
+
+.edit-userName>div input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  width: 86%;
+}
+
+
+/* From Uiverse.io by CristianMontoya98 */ 
+
+.logout{
+ width: 6.5em;
+ height: 2.3em;
+ margin: 0.5em;
+ background: black;
+ color: white;
+ border: none;
+ border-radius: 0.625em;
+ font-size: 20px;
+ font-weight: bold;
+ cursor: pointer;
+ position: relative;
+ z-index: 1;
+ overflow: hidden;
+}
+
+.logout:hover {
+ color: black;
+}
+
+.logout:after {
+ content: "";
+ background: white;
+ position: absolute;
+ z-index: -1;
+ left: -20%;
+ right: -20%;
+ top: 0;
+ bottom: 0;
+ transform: skewX(-45deg) scale(0, 1);
+ transition: all 0.5s;
+}
+
+.logout:hover:after {
+ transform: skewX(-45deg) scale(1, 1);
+ -webkit-transition: all 0.5s;
+ transition: all 0.5s;
+}

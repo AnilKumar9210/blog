@@ -1,0 +1,7 @@
+POST http://localhost:3000/blog/post
+Content-Type: application/json
+
+{
+  "title": "helowwe",
+  "prologue": "kjhfds"
+}

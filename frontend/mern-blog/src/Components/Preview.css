@@ -1,0 +1,1065 @@
+.preview {
+  position: relative;
+  padding: 0 22px;
+  width: 70%;
+  margin: auto;
+  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fill {
+  fill: black;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+.banner img {
+  margin: auto;
+  position: relative;
+  width: inherit;
+  object-fit: contain;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  /* margin: 6px 0; */
+  background-color: #000;
+}
+
+.prologue {
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.author {
+  margin: 7px 20px;
+  font-size: 1.2rem;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.author:hover {
+  text-decoration: underline;
+}
+
+.preview-content {
+  line-height: 28px;
+  word-spacing: 4px;
+  word-break: auto-phrase;
+}
+
+.preview-content p {
+  color: rgb(0, 0, 0);
+  word-spacing: 2px;
+  font-size: 1.1rem;
+  line-height: 2rem;
+}
+
+/* From Uiverse.io by _5797 */
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.like-btn input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.like-btn svg,
+.reactions svg {
+  width: 2rem;
+  height: 2rem;
+  fill: #000000;
+  padding: 10px;
+  transition: 0.2s ease all;
+}
+
+#icon-like-regular {
+  display: block;
+}
+
+#icon-like-solid {
+  display: none;
+}
+
+#like-checkbox:checked ~ #icon-like-regular {
+  display: none;
+  animation: checked-icon-like 0.5s;
+}
+
+#like-checkbox:checked ~ #icon-like-solid {
+  display: block;
+  fill: #d7000f;
+  animation: checked-icon-like 0.5s;
+}
+
+.fireworks {
+  transform: scale(0.4);
+}
+
+#like-checkbox:checked ~ .fireworks > .checked-like-fx {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  right: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff;
+  animation: 1s fireworks-bang ease-out forwards,
+    1s fireworks-gravity ease-in forwards, 5s fireworks-position linear forwards;
+  animation-duration: 1.25s, 1.25s, 6.25s;
+}
+
+@keyframes checked-icon-like {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(-10deg);
+  }
+}
+
+@keyframes fireworks-position {
+  0%,
+  19.9% {
+    margin-top: 10%;
+    margin-left: 40%;
+  }
+  20%,
+  39.9% {
+    margin-top: 40%;
+    margin-left: 30%;
+  }
+  40%,
+  59.9% {
+    margin-top: 20%;
+    margin-left: 70%;
+  }
+  60%,
+  79.9% {
+    margin-top: 30%;
+    margin-left: 20%;
+  }
+  80%,
+  99.9% {
+    margin-top: 30%;
+    margin-left: 80%;
+  }
+}
+
+@keyframes fireworks-gravity {
+  to {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+}
+
+@keyframes fireworks-bang {
+  to {
+    box-shadow: 114px -107.3333333333px #8800ff, 212px -166.3333333333px #a600ff,
+      197px -6.3333333333px #ff006a, 179px -329.3333333333px #3300ff,
+      -167px -262.3333333333px #ff0062, 233px 65.6666666667px #ff008c,
+      81px 42.6666666667px #0051ff, -13px 54.6666666667px #00ff2b,
+      -60px -183.3333333333px #0900ff, 127px -259.3333333333px #ff00e6,
+      117px -122.3333333333px #00b7ff, 95px 20.6666666667px #ff8000,
+      115px 1.6666666667px #0004ff, -160px -328.3333333333px #00ff40,
+      69px -242.3333333333px #000dff, -208px -230.3333333333px #ff0400,
+      30px -15.3333333333px #e6ff00, 235px -15.3333333333px #fb00ff,
+      80px -232.3333333333px #d5ff00, 175px -173.3333333333px #00ff3c,
+      -187px -176.3333333333px #aaff00, 4px 26.6666666667px #ff6f00,
+      227px -106.3333333333px #ff0099, 119px 17.6666666667px #00ffd5,
+      -102px 4.6666666667px #ff0088, -16px -4.3333333333px #00fff7,
+      -201px -310.3333333333px #00ffdd, 64px -181.3333333333px #f700ff,
+      -234px -15.3333333333px #00fffb, -184px -263.3333333333px #aa00ff,
+      96px -303.3333333333px #0037ff, -139px 10.6666666667px #0026ff,
+      25px -205.3333333333px #00ff2b, -129px -322.3333333333px #40ff00,
+      -235px -187.3333333333px #26ff00, -136px -237.3333333333px #0091ff,
+      -82px -321.3333333333px #6a00ff, 7px -267.3333333333px #ff00c8,
+      -155px 30.6666666667px #0059ff, -85px -73.3333333333px #6a00ff,
+      60px -199.3333333333px #55ff00, -9px -289.3333333333px #00ffaa,
+      -208px -167.3333333333px #00ff80, -13px -299.3333333333px #ff0004,
+      179px -164.3333333333px #ff0044, -112px 12.6666666667px #0051ff,
+      -209px -125.3333333333px #ff00bb, 14px -101.3333333333px #00ff95,
+      -184px -292.3333333333px #ff0099, -26px -168.3333333333px #09ff00,
+      129px -67.3333333333px #0084ff, -17px -23.3333333333px #0059ff,
+      129px 34.6666666667px #7300ff, 35px -24.3333333333px #ffd900,
+      -12px -297.3333333333px #ff8400, 129px -156.3333333333px #0dff00,
+      157px -29.3333333333px #1a00ff, -221px 6.6666666667px #ff0062,
+      0px -311.3333333333px #ff006a, 155px 50.6666666667px #00ffaa,
+      -71px -318.3333333333px #0073ff;
+  }
+}
+
+.hold-interactions {
+  /* https://smoothshadows.com/#djEsMSwyLDAuMDQsMjgsMCwwLCMwMjA1MGQsI2ZjZmNmYywjZmZmZmZmLDI%3D */
+  box-shadow: 0px 0px 7px rgba(2, 5, 13, 0.02),
+    0px 0px 28px rgba(2, 5, 13, 0.04);
+
+  /* outline: 1.1px solid black; */
+  margin: 25px;
+  padding: 12px;
+  border-radius: 15px;
+  background: #f8f8f8;
+}
+
+.interaction {
+  display: flex;
+  align-items: center;
+}
+
+.interaction span {
+  font-size: 1.3rem;
+}
+
+.reactions {
+  /* outline: 1px solid black; */
+  margin: 10px;
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.reactions svg {
+  cursor: pointer;
+}
+
+.create-comment > div > span {
+  display: flex;
+  position: relative;
+  width: 35px;
+  height: 35px;
+  flex-direction: column;
+  outline: 1px solid black;
+  border-radius: 50%;
+}
+
+.create-comment > div > span img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.create-comment > div {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin: 10px;
+}
+
+/* From Uiverse.io by mpody11 */
+.messageBox {
+  width: fit-content;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  padding: 0 15px;
+  border-radius: 10px;
+  border: 1px solid rgb(63, 63, 63);
+}
+.messageBox:focus-within {
+  border: 1px solid #606060;
+}
+.fileUploadWrapper {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#file {
+  display: none;
+}
+.fileUploadWrapper label {
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.fileUploadWrapper label svg {
+  height: 18px;
+}
+.fileUploadWrapper label svg path {
+  transition: all 0.3s;
+}
+.fileUploadWrapper label svg circle {
+  transition: all 0.3s;
+}
+.fileUploadWrapper label:hover svg path {
+  stroke: #fff;
+}
+.fileUploadWrapper label:hover svg circle {
+  stroke: #fff;
+  fill: #3c3c3c;
+}
+.fileUploadWrapper label:hover .tooltip {
+  display: block;
+  opacity: 1;
+}
+.tooltip {
+  position: absolute;
+  top: -40px;
+  display: none;
+  opacity: 0;
+  color: white;
+  font-size: 10px;
+  text-wrap: nowrap;
+  background-color: #000;
+  padding: 6px 10px;
+  border: 1px solid #3c3c3c;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.596);
+  transition: all 0.3s;
+}
+#messageInput {
+  width: 200px;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding-left: 10px;
+  color: #000000;
+}
+#messageInput:focus ~ #sendButton svg path,
+#messageInput:valid ~ #sendButton svg path {
+  fill: #3c3c3c;
+  stroke: white;
+}
+
+#sendButton {
+  width: fit-content;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+#sendButton svg {
+  height: 18px;
+  transition: all 0.3s;
+}
+#sendButton svg path {
+  transition: all 0.3s;
+}
+#sendButton:hover svg path {
+  fill: #3682f4;
+  stroke: white;
+}
+
+.comment-section {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 320px;
+  background: #fff;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  transform: translateX(100%); /* hidden */
+  transition: transform 0.3s ease;
+  z-index: 999;
+  padding: 20px;
+}
+
+/* When open */
+.comment-section.open {
+  transform: translateX(0);
+}
+
+.close-btn {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* From Uiverse.io by javierBarroso */
+.button {
+  position: relative;
+  width: 3em;
+  height: 3em;
+  border: none;
+  background: rgba(180, 83, 107, 0.11);
+  border-radius: 5px;
+  transition: background 0.5s;
+}
+
+.X {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.6em;
+  height: 1.5px;
+  background-color: black;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.Y {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.6em;
+  height: 1.5px;
+  background-color: black;
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+.blog-author {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.img > img {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.img {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.img:last-child {
+  font-size: 1.2rem;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.img:hover {
+  cursor: pointer;
+}
+
+.close {
+  position: absolute;
+  display: flex;
+  padding: 0.8rem 1.5rem;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  top: -70%;
+  left: 50%;
+  width: 3em;
+  height: 1.7em;
+  font-size: 12px;
+  background-color: rgb(19, 22, 24);
+  color: rgb(187, 229, 236);
+  border: none;
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.button:hover {
+  background-color: rgb(211, 21, 21);
+}
+
+.button:active {
+  background-color: rgb(130, 0, 0);
+}
+
+.button:hover > .close {
+  animation: close 0.2s forwards 0.25s;
+}
+
+@keyframes close {
+  100% {
+    opacity: 1;
+  }
+}
+
+.comments {
+  height: 65%;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+}
+.cmt {
+  height: auto;
+  display: flex;
+  margin: 16px 0;
+  word-wrap: break-word;
+  position: relative;
+  align-self: flex-end;
+}
+
+.cmt img {
+  position: absolute;
+  width: 1.4rem;
+  height: 1.4rem;
+  bottom: -15px;
+  right: 0;
+}
+
+.cmt .alter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cmt > span {
+  max-width: 250px;
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  padding: 8px;
+  background: #e4e0e0;
+  border-radius: 8px 8px 0 8px;
+  position: relative;
+  right: 22px;
+  cursor: pointer;
+}
+
+/* Scrollbar Track */
+.comments::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Scrollbar background */
+.comments::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Scrollbar thumb */
+.comments::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Scrollbar thumb hover */
+.comments::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.alter {
+  position: absolute;
+  display: flex;
+  bottom: -28px;
+  right: 50px;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.alter button {
+  border-radius: 18px;
+  width: 80px;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  background: white;
+  align-items: center;
+  color: black;
+  border: 1px solid black;
+}
+
+/* From Uiverse.io by Li-Deheng */
+.like-dislike-container {
+  --dark-grey: #353535;
+  --middle-grey: #767676;
+  --lightest-grey: linear-gradient(#fafafa, #ebebeb);
+  --shadow: 0 5px 15px 0 #00000026;
+  --shadow-active: 0 5px 5px 0 #00000026;
+  --border-radius-main: 10px;
+  --border-radius-icon: 50px;
+  position: relative;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+  color: var(--dark-grey);
+  opacity: 0.9;
+  margin: auto;
+  padding: 1.5rem;
+  font-weight: 600;
+  /* background: var(--lightest-grey); */
+  max-width: max-content;
+  border-radius: var(--border-radius-main);
+  /* box-shadow: var(--shadow); */
+  transition: 0.2s ease all;
+}
+
+.like-dislike-container .tool-box {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 0;
+  right: 0;
+  border-radius: var(--border-radius-main);
+}
+
+.like-dislike-container .btn-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 0.8rem;
+  height: 0.8rem;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+  background-color: #ff000080;
+  border: none;
+  border-radius: var(--border-radius-main);
+  transition: 0.2s ease all;
+}
+
+.like-dislike-container .btn-close:hover {
+  width: 1rem;
+  height: 1rem;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #ff0000cc;
+  box-shadow: var(--shadow-active);
+}
+
+.like-dislike-container .btn-close:active {
+  width: 0.9rem;
+  height: 0.9rem;
+  font-size: 0.9rem;
+  color: #ffffffde;
+  --shadow-btn-close: 0 3px 3px 0 #00000026;
+  box-shadow: var(--shadow-btn-close);
+}
+
+.like-dislike-container .text-content {
+  margin-bottom: 1rem;
+  font-size: 18px;
+  line-height: 1.6;
+  cursor: default;
+}
+
+.like-dislike-container .icons-box {
+  display: flex;
+}
+
+.like-dislike-container .icons {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.6;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid var(--middle-grey);
+  border-radius: var(--border-radius-icon);
+  transition: 0.2s ease all;
+}
+
+.like-dislike-container .icons:hover {
+  opacity: 0.9;
+  box-shadow: var(--shadow);
+}
+
+.like-dislike-container .icons:active {
+  opacity: 0.9;
+  box-shadow: var(--shadow-active);
+}
+
+.like-dislike-container .icons .btn-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.like-dislike-container .like-text-content {
+  border-right: 0.1rem solid var(--dark-grey);
+  padding: 0 0.6rem 0 0.5rem;
+  pointer-events: none;
+}
+
+.like-dislike-container .dislike-text-content {
+  border-left: 0.1rem solid var(--dark-grey);
+  padding: 0 0.5rem 0 0.6rem;
+  pointer-events: none;
+}
+
+.like-dislike-container .icons .svgs {
+  width: 1.3rem;
+  fill: #000000;
+  box-sizing: content-box;
+  padding: 10px 10px;
+  transition: 0.2s ease all;
+}
+
+/* Hide the default checkbox */
+.like-dislike-container .icons .input-box {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.like-dislike-container .icons #icon-like-regular {
+  display: block;
+}
+
+.like-dislike-container .icons #icon-like-solid {
+  display: none;
+}
+
+.like-dislike-container .icons:hover :is(#icon-like-solid, #icon-like-regular) {
+  animation: rotate-icon-like 0.7s ease-in-out both;
+}
+
+.like-dislike-container .icons #like-checkbox:checked ~ #icon-like-regular {
+  display: none;
+  animation: checked-icon-like 0.5s;
+}
+
+.like-dislike-container .icons #like-checkbox:checked ~ #icon-like-solid {
+  display: block;
+  animation: checked-icon-like 0.5s;
+}
+
+.like-dislike-container .icons #icon-dislike-regular {
+  display: block;
+  transform: rotate(180deg);
+}
+
+.like-dislike-container .icons #icon-dislike-solid {
+  display: none;
+  transform: rotate(180deg);
+}
+
+.like-dislike-container
+  .icons:hover
+  :is(#icon-dislike-solid, #icon-dislike-regular) {
+  animation: rotate-icon-dislike 0.7s ease-in-out both;
+}
+
+.like-dislike-container
+  .icons
+  #dislike-checkbox:checked
+  ~ #icon-dislike-regular {
+  display: none;
+  animation: checked-icon-dislike 0.5s;
+}
+
+.like-dislike-container .icons #dislike-checkbox:checked ~ #icon-dislike-solid {
+  display: block;
+  animation: checked-icon-dislike 0.5s;
+}
+
+.like-dislike-container .icons .fireworks {
+  transform: scale(0.4);
+}
+
+.like-dislike-container
+  .icons
+  #like-checkbox:checked
+  ~ .fireworks
+  > .checked-like-fx {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  right: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff;
+  animation: 1s fireworks-bang ease-out forwards,
+    1s fireworks-gravity ease-in forwards, 5s fireworks-position linear forwards;
+  animation-duration: 1.25s, 1.25s, 6.25s;
+}
+
+.like-dislike-container
+  .icons
+  #dislike-checkbox:checked
+  ~ .fireworks
+  > .checked-dislike-fx {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  left: 40px;
+  border-radius: 50%;
+  box-shadow: 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff,
+    0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff;
+  animation: 1s fireworks-bang ease-out forwards,
+    1s fireworks-gravity ease-in forwards, 5s fireworks-position linear forwards;
+  animation-duration: 1.25s, 1.25s, 6.25s;
+}
+
+/* Shake Animation */
+@keyframes rotate-icon-like {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: rotate(3deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(-3deg) translate3d(0, 0, 0);
+  }
+
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes rotate-icon-dislike {
+  0% {
+    transform: rotate(180deg) translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: rotate(183deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(177deg) translate3d(0, 0, 0);
+  }
+
+  75% {
+    transform: rotate(181deg) translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: rotate(180deg) translate3d(0, 0, 0);
+  }
+}
+
+/* Checked Animation */
+@keyframes checked-icon-like {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2) rotate(-10deg);
+  }
+}
+
+@keyframes checked-icon-dislike {
+  0% {
+    transform: scale(0) rotate(180deg);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2) rotate(170deg);
+  }
+}
+
+/* Fireworks Animation */
+@keyframes fireworks-position {
+  0%,
+  19.9% {
+    margin-top: 10%;
+    margin-left: 40%;
+  }
+
+  20%,
+  39.9% {
+    margin-top: 40%;
+    margin-left: 30%;
+  }
+
+  40%,
+  59.9% {
+    margin-top: 20%;
+    margin-left: 70%;
+  }
+
+  60%,
+  79.9% {
+    margin-top: 30%;
+    margin-left: 20%;
+  }
+
+  80%,
+  99.9% {
+    margin-top: 30%;
+    margin-left: 80%;
+  }
+}
+
+@keyframes fireworks-gravity {
+  to {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+}
+
+@keyframes fireworks-bang {
+  to {
+    box-shadow: 114px -107.3333333333px #8800ff, 212px -166.3333333333px #a600ff,
+      197px -6.3333333333px #ff006a, 179px -329.3333333333px #3300ff,
+      -167px -262.3333333333px #ff0062, 233px 65.6666666667px #ff008c,
+      81px 42.6666666667px #0051ff, -13px 54.6666666667px #00ff2b,
+      -60px -183.3333333333px #0900ff, 127px -259.3333333333px #ff00e6,
+      117px -122.3333333333px #00b7ff, 95px 20.6666666667px #ff8000,
+      115px 1.6666666667px #0004ff, -160px -328.3333333333px #00ff40,
+      69px -242.3333333333px #000dff, -208px -230.3333333333px #ff0400,
+      30px -15.3333333333px #e6ff00, 235px -15.3333333333px #fb00ff,
+      80px -232.3333333333px #d5ff00, 175px -173.3333333333px #00ff3c,
+      -187px -176.3333333333px #aaff00, 4px 26.6666666667px #ff6f00,
+      227px -106.3333333333px #ff0099, 119px 17.6666666667px #00ffd5,
+      -102px 4.6666666667px #ff0088, -16px -4.3333333333px #00fff7,
+      -201px -310.3333333333px #00ffdd, 64px -181.3333333333px #f700ff,
+      -234px -15.3333333333px #00fffb, -184px -263.3333333333px #aa00ff,
+      96px -303.3333333333px #0037ff, -139px 10.6666666667px #0026ff,
+      25px -205.3333333333px #00ff2b, -129px -322.3333333333px #40ff00,
+      -235px -187.3333333333px #26ff00, -136px -237.3333333333px #0091ff,
+      -82px -321.3333333333px #6a00ff, 7px -267.3333333333px #ff00c8,
+      -155px 30.6666666667px #0059ff, -85px -73.3333333333px #6a00ff,
+      60px -199.3333333333px #55ff00, -9px -289.3333333333px #00ffaa,
+      -208px -167.3333333333px #00ff80, -13px -299.3333333333px #ff0004,
+      179px -164.3333333333px #ff0044, -112px 12.6666666667px #0051ff,
+      -209px -125.3333333333px #ff00bb, 14px -101.3333333333px #00ff95,
+      -184px -292.3333333333px #ff0099, -26px -168.3333333333px #09ff00,
+      129px -67.3333333333px #0084ff, -17px -23.3333333333px #0059ff,
+      129px 34.6666666667px #7300ff, 35px -24.3333333333px #ffd900,
+      -12px -297.3333333333px #ff8400, 129px -156.3333333333px #0dff00,
+      157px -29.3333333333px #1a00ff, -221px 6.6666666667px #ff0062,
+      0px -311.3333333333px #ff006a, 155px 50.6666666667px #00ffaa,
+      -71px -318.3333333333px #0073ff;
+  }
+}
+
+/* From Uiverse.io by cosnametv */
+.loader {
+  margin: auto;
+  --color: #a5a5b0;
+  --size: 70px;
+  width: var(--size);
+  height: var(--size);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.loader span {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color);
+  animation: keyframes-blink 0.6s alternate infinite linear;
+}
+
+.loader span:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.loader span:nth-child(2) {
+  animation-delay: 200ms;
+}
+
+.loader span:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+.loader span:nth-child(4) {
+  animation-delay: 400ms;
+}
+
+.loader span:nth-child(5) {
+  animation-delay: 500ms;
+}
+
+.loader span:nth-child(6) {
+  animation-delay: 600ms;
+}
+
+@keyframes keyframes-blink {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.5) rotate(5deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.full {
+
+  width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.full img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.flex-direction {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.flex-direction h5 {
+  margin: 0;
+  font-size: 16px;
+}

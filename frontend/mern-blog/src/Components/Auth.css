@@ -1,0 +1,109 @@
+.authentication {
+      position: relative;
+      gap: 20px;
+    height: 80vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+     display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 300px;
+    height: auto;
+    text-align: center;
+}
+
+.email {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  gap: 6px;
+  background-color: #e0dfd5;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.email img {
+  height: 20px;
+}
+
+.email input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  width: 86%;
+}
+.pass {
+  width: 100%;
+  position: relative;
+  height: 50px;
+  display: flex;
+  gap: 6px;
+  background-color: #e0dfd5;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.pass input {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  width: 75%;
+}
+
+.login button {
+  margin: auto;
+  border: none;
+  height: 40px;
+  width: 80px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 22px;
+  color: white;
+  background: black;
+}
+
+.login button:hover {
+  cursor: pointer;
+  transform: scale(0.9);
+  box-shadow: 0px 0px 1px rgba(149, 156, 177, 0.25),
+    0px 0px 3px rgba(149, 156, 177, 0.25), 0px 1px 6px rgba(149, 156, 177, 0.25),
+    0px 2px 11px rgba(149, 156, 177, 0.25),
+    0px 3px 17px rgba(149, 156, 177, 0.25),
+    0px 4px 25px rgba(149, 156, 177, 0.25),
+    0px 5px 34px rgba(149, 156, 177, 0.25);
+}
+
+.link {
+    color: blue;
+}
+.link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.google button {
+    width: 250px;
+    display: flex;
+    gap: 4px;
+    height: 40px;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.google button >img {
+    height: 25px;
+}
+
+.google button:hover{
+    transform: scale(.9);
+} 
