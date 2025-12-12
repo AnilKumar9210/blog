@@ -1,24 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Profile.css";
 import { appContext } from "../Context/context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import user from "../assets/user.png";
 import email from "../assets/email.png";
 import arroba from "../assets/arroba.png";
 import { ToastContainer, toast } from "react-toastify";
 
 const Profile = () => {
-  const { userDetails,setUserDetails } = useContext(appContext);
+  const { userDetails,setUserDetails,setIsLogin } = useContext(appContext);
   const navigate = useNavigate();
+
+
+  const {userId} = useParams ()
 
   const [userBlogs, setUserBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [liked, setLiked] = useState(false);
   const [update, setUpdate] = useState(false);
   const [previewUrl, setPreviewUrl] = useState("");
+  const [profileLoading,setProfileLoading] = useState (false)
 
   const [file, setFile] = useState(null);
   const [editData, setEditData] = useState({});
+  const [profile,setProfile] = useState ({})
 
   const [links, setLinks] = useState({});
 
@@ -48,9 +53,36 @@ const Profile = () => {
 
   useEffect (()=> {},[userDetails])
 
+  const handleLogout = ()=> {
+    localStorage.removeItem ('token');
+    setIsLogin (false)
+    navigate ('/auth')
+  }
+
   useEffect(() => {
-    async function fetchUserBlogs() {
-      setLoading(true);
+
+    async function fetchUser () {
+      setProfileLoading (true)
+      setLoading (true)
+      let blogs,data;
+      try {
+        const res = await fetch (`http://localhost:3000/user/${userId}`,{
+          method:"GET",
+          headers : {
+            "Content-Type" : "application/json"
+          },
+        })
+
+        data = await res.json ();
+        console.log("user-details --> ",data.userProfile);
+        setProfile (data.userProfile)
+        blogs = data.userProfile.blogs
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setProfileLoading (false)
+      }
+
       try {
         const res = await fetch("http://localhost:3000/blog/getBlogsById/", {
           method: "POST",
@@ -58,37 +90,40 @@ const Profile = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            blogIds: userDetails.blogs,
+            blogIds: blogs,
           }),
         });
-        const data = await res.json();
+        const resData = await res.json();
         setEditData({
-          userName: userDetails.personal_info.userName,
-          email: userDetails.personal_info.email,
-          bio: userDetails.personal_info.bio,
-          fullName: userDetails.personal_info.fullName,
+          userName: data.userProfile.personal_info.userName,
+          email: data.userProfile.personal_info.email,
+          bio: data.userProfile.personal_info.bio,
+          fullName: data.userProfile.personal_info.fullName,
         });
 
         setLinks({
-          instagram: userDetails.social_links.instagram,
-          youtube: userDetails.social_links.youtube,
-          twitter: userDetails.social_links.twitter,
-          facebook: userDetails.social_links.facebook,
-          github: userDetails.social_links.github,
-          website: userDetails.social_links.website,
+          instagram: data.userProfile.social_links.instagram,
+          youtube: data.userProfile.social_links.youtube,
+          twitter: data.userProfile.social_links.twitter,
+          facebook: data.userProfile.social_links.facebook,
+          github: data.userProfile.social_links.github,
+          website: data.userProfile.social_links.website,
         });
 
-        console.log(data);
+        console.log(resData);
 
-        setUserBlogs(data.blogs);
+        setUserBlogs(resData.blogs);
       } catch (error) {
         console.log(error);
       } finally {
         setLoading(false);
       }
     }
-    fetchUserBlogs();
-  }, [userDetails]);
+
+    
+    fetchUser ();
+    // fetchUserBlogs();
+  }, [userId]);
 
 
   const updateUserProfile = async ()=> {
@@ -125,6 +160,7 @@ const Profile = () => {
       localStorage.setItem ('user',JSON.stringify (data.updatedUser));
 
       setUserDetails (data.updatedUser);
+      setProfile (data.updatedUser)
     } catch (e) {
       console.log(e)
     }
@@ -214,7 +250,7 @@ const Profile = () => {
             </div>
           </div>
 
-          {!userDetails ? (
+          {profileLoading ? (
             <div className="loader">
               <span></span>
               <span></span>
@@ -226,16 +262,16 @@ const Profile = () => {
           ) : (
             <div className="user-details">
               <div className="user-profile-pic">
-                <img src={userDetails.profile_pic} alt="" />
+                <img src={profile.profile_pic} alt="" />
               </div>
               <div className="user-info">
-                <h4>{userDetails.personal_info.fullName}</h4>
-                <span>@{userDetails.personal_info.userName}</span>
+                <h4>{profile.personal_info?.fullName}</h4>
+                <span>@{profile.personal_info?.userName}</span>
               </div>
               <div className="posts">
                 <span>{userBlogs.length} Blogs Posted</span>
               </div>
-              <div className="edit">
+              {userId === userDetails._id && <div className="edit">
                 <button
                   className="Btn"
                   onClick={() => {
@@ -262,10 +298,10 @@ const Profile = () => {
                     />
                   </svg>
                 </button>
-              </div>
+              </div>}
               <div className="bio">
                 <p>
-                  {userDetails.personal_info.bio}
+                  {profile.personal_info?.bio}
                 </p>
               </div>
               <div className="contact-info">
@@ -274,7 +310,7 @@ const Profile = () => {
                   <div className="underline"></div>
                 </h5>
                 <div className="socials">
-                  {links.instagram &&<span className="instagram"><a href={userDetails.social_links.instagram} target="__blank">
+                  {profile.social_links.instagram &&<span className="instagram"><a href={userDetails.social_links?.instagram} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -294,7 +330,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {links.youtube &&<span className="youtube"><a href={userDetails.social_links.youtube} target="__blank">
+                  {profile.social_links.youtube &&<span className="youtube"><a href={profile.social_links?.youtube} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -313,7 +349,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {links.facebook &&<span className="facebook"><a href={userDetails.social_links.facebook} target="__blank">
+                  {profile.social_links.facebook &&<span className="facebook"><a href={profile.social_links?.facebook} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -332,7 +368,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {links.twitter &&<span className="twitter"><a href={userDetails.social_links.twitter} target="__blank">
+                  {profile.social_links.twitter &&<span className="twitter"><a href={profile.social_links?.twitter} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -351,7 +387,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {!links.github && <span className="github"><a href={userDetails.social_links.github} target="__blank">
+                  {profile.social_links.github && <span className="github"><a href={profile.social_links?.github} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -370,7 +406,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {links.website &&<span className="website"><a href={userDetails.social_links.website} target="__blank">
+                  {profile.social_links.website &&<span className="website"><a href={profile.social_links?.website} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -393,7 +429,7 @@ const Profile = () => {
               </div>
               <span>joined on 1 jan 2029</span>
               
-          <button class="logout"> log out
+          <button class="logout" onClick={handleLogout}> log out
 </button>
             </div>
           )}
@@ -408,7 +444,7 @@ const Profile = () => {
               </h5>
             </div>
             <img
-              src={previewUrl ? previewUrl : userDetails.profile_pic}
+              src={previewUrl ? previewUrl : profile.profile_pic}
               alt="profile picture"
             />
             <div className="upload-section">

@@ -10,6 +10,7 @@ export const AppProvider = ({children})=> {
     const [isLogin,setIsLogin] = useState (!!localStorage.getItem ('token'));
     const [blogs,setBlogs] = useState ([]);
     const [category, setCategory] = useState("home");
+    const [profile,setProfile] = useState ()
 
     useEffect (()=> {
         const stored = localStorage.getItem ('user');
@@ -34,7 +35,7 @@ export const AppProvider = ({children})=> {
         blogs,
         setBlogs,
         category,
-        setCategory
+        setCategory,
     }}>{children}
 
     </appContext.Provider>

@@ -13,6 +13,7 @@ import { profile, timeStamp } from 'console'
 import multer from "multer";
 import cloudinary from './Config/cloudinary.js';
 import comments from './Schema/comments.js'
+import { title } from 'process'
 
 const app = express()
 app.use(express.json());
@@ -153,7 +154,6 @@ app.post(
 
       let profilePicUrl = null;
 
-      // ⭐ Upload profile picture
       if (req.file) {
         const uploadResult = await uploadToCloudinary(
           req.file.buffer,
@@ -215,6 +215,49 @@ app.post(
     }
   }
 );
+
+
+app.get ('/user/:userId', async (req,res)=> {
+  try {
+    const {userId} = req.params;
+
+    const userProfile = await user.findById (userId);
+
+    res.status (200).json ({success:true,userProfile})
+  } catch (error) {
+    console.log(error)
+    res.status (500).json ({success:false,error:error.message})
+  }
+})
+
+
+app.get ('/search', async (req,res)=> {
+  try {
+    const {query} = req.query;
+
+    if (!query) return res.json ({blogs:[],users:[]});
+
+    const regex = new RegExp (query,'i');
+
+    const blogs = await Blog.find ({
+      $or : [
+        {"title":regex},
+      ]
+    })
+
+    const users = await user.find ({
+      $or:[
+        {"personal_info.userName" : regex}
+      ]
+    })
+
+    res.status (200).json ({blogs,users})
+
+
+  } catch (error) {
+    res.status (500).json ({success:false,error:error.message})
+  }
+})
 
 
 server.listen(PORT, () => {

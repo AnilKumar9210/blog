@@ -44,4 +44,12 @@
 
 .trending-blog-title {
     font-size: 1.4rem;
+    padding-left: 10px;
+}
+
+.trending-blog {
+        display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
 }

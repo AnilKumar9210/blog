@@ -29,7 +29,7 @@ function App() {
       <Route path="/auth" element={<Auth/>}/>
       <Route path='/create-post' element={<CreatePost/>}/>
       <Route path='/view-blog' element={<Preview/>} />
-      <Route path='/profile' element={<Profile/>} />
+      <Route path='/profile/:userId' element={<Profile/>} />
     </Routes>
     </>
   )

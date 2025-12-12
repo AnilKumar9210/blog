@@ -78,7 +78,7 @@ const Preview = () => {
       },
       body: JSON.stringify({
         comment: cmt,
-        userId: userDetails.id,
+        userId: userDetails._id,
       }),
     });
 
@@ -89,7 +89,7 @@ const Preview = () => {
   // handling likes of blogs
 
   const handleLike = async (blogId) => {
-    console.log(blogId, userDetails.id);
+    console.log(blogId, userDetails._id);
     const res = await fetch(`http://localhost:3000/blog/like/${blogId}`, {
       method: "POST",
       headers: {
@@ -97,7 +97,7 @@ const Preview = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
-        userId: userDetails.id,
+        userId: userDetails._id,
       }),
     });
 

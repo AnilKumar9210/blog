@@ -1,15 +1,46 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import "./Navbar.css";
 import logo from "../assets/quill.png";
 import search from "../assets/search.png";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../Context/context";
-import user from '../assets/user.png'
+import debouncing from "./Debounce";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const {isLogin,setIsLogin} = useContext (appContext);
+  const {isLogin,setIsLogin,userDetails,setProfile} = useContext (appContext);
+
+  const [query,setQuery] = useState ("");
+  const [getUser,setGetUser] = useState (false)
+
+  const [results,setResults]= useState ({blogs:[],users:[]});
+
+  const deDebounceQuery = debouncing (query,300);
+
+
+  useEffect (()=> {
+    const fetchSearch = async ()=> {
+      console.log("ehloewi")
+
+      if (deDebounceQuery.trim () === "") {
+        setResults ({blogs:[],users:[]});
+        return;
+      }
+
+      const res = await fetch (`http://localhost:3000/search?query=${deDebounceQuery}`,{
+        method:"GET",
+        headers : {
+          "Content-Type":"application/json"
+        }
+      });
+      const data = await res.json ()
+      console.log(data)
+      setResults (data)
+    }
+
+    fetchSearch ()
+  },[deDebounceQuery])
 
  
 
@@ -61,12 +92,35 @@ const Navbar = () => {
             }}
           >
             Sign up
-          </button> : <img src={user} alt="user" onClick={()=>{navigate ('profile')}}/>}
+          </button> : <div className="width">
+
+          <img src={userDetails?.profile_pic} alt="user" onClick={()=>{
+            navigate (`/profile/${userDetails._id}`,)}}/>
+            </div>
+            }
         </div>
       </div>
       <div className="search">
-        <input type="text" name="search" placeholder="search here" />
+        <input type="text" name="search" placeholder="search here" onChange={(e)=> {
+          setGetUser (true);
+          if (e.target.value === "") setGetUser (false)
+          console.log(e.target.value)
+          setQuery (e.target.value)}} />
         <img src={search} alt="" className="search-logo" />
+        {(getUser) &&<div className="search-results">
+          {results.users.length > 0 && <div className="user-results">
+          <h5>users : </h5>
+            {results.users.map ((user)=>(
+            <span>@{user.personal_info.userName}</span>
+            ))}
+          </div>}
+          {results.blogs.length > 0 && <div className="blogs-results">
+          <h5>posts :</h5>
+            {results.blogs.map ((blog)=>(
+            <span>{blog.title}</span>
+            ))}
+          </div>}
+        </div>}
       </div>
     </nav>
   );
