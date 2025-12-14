@@ -16,7 +16,7 @@ const Preview = () => {
 
 
   const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(blog.activity?.likes || 0);
+  const [likeCount, setLikeCount] = useState(blog?.activity?.likes || 0);
   const [openComments, setOpenComments] = useState(false);
   const [comment, setComment] = useState([]);
   const [cmt, setCmt] = useState("");
@@ -165,17 +165,17 @@ const Preview = () => {
   return (
     <div className="preview">
       <>
-        <h1 className="blog-heading">{blog.title}</h1>
+        <h1 className="blog-heading">{blog?.title}</h1>
         <div className="banner">
-          <img src={blog.imageUrl} alt="" />
+          <img src={blog?.imageUrl} alt="" />
         </div>
-        <div className="prologue">{blog.prologue}</div>
+        
         {/* <section className="preview-content">
         {blog.content}
       </section> */}
         <div
           className="preview-content"
-          dangerouslySetInnerHTML={{ __html: blog.content }}
+          dangerouslySetInnerHTML={{ __html: blog?.content }}
         />
         <div className="line"></div>
         <div className="hold-interactions">
@@ -183,16 +183,16 @@ const Preview = () => {
             <span className="img">
               <div className="full">
 
-              <img src={blog.profilePic} alt="" />
+              <img src={blog?.profilePic} alt="" />
               </div>
               <div className="flex-direction">
-              <h5>{blog.author}</h5>
-              <span>{blog.userName}</span>
+              <h5>{blog?.author}</h5>
+              <span>{blog?.userName}</span>
               </div>
             </span>
             <span>
               Posted on :{" "}
-              {blog.createdAt
+              {blog?.createdAt
                 ? new Date(blog.createdAt).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -208,7 +208,7 @@ const Preview = () => {
                   <div class="icons">
                     <label
                       onClick={() => {
-                        handleLike(blog._id);
+                        handleLike(blog?._id);
                       }}
                       class="btn-label"
                       for="like-checkbox"
@@ -241,7 +241,7 @@ const Preview = () => {
                     class="icons"
                     onClick={() => {
                       setOpenComments(true);
-                      fetchComments(blog._id);
+                      fetchComments(blog?._id);
                     }}
                   >
                     <label class="btn-label" for="">
@@ -332,7 +332,6 @@ const Preview = () => {
                     <img src={profile} alt="" />
                     {selectedIndex === val._id && (
                       <div className="alter">
-                        <button>Edit</button>
                         <button
                           onClick={() => {
                             deleteComment(val._id, blog._id);

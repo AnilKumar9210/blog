@@ -10,10 +10,6 @@ const blogs = mongoose.Schema ({
         type:String,
         required:true
     },
-    prologue : {
-        type:String,
-        required:true
-    },
 
     imageUrl : {
         type:String,

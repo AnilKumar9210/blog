@@ -54,9 +54,9 @@ const Profile = () => {
   useEffect (()=> {},[userDetails])
 
   const handleLogout = ()=> {
-    localStorage.removeItem ('token');
-    setIsLogin (false)
-    navigate ('/auth')
+      localStorage.removeItem ('token');
+      setIsLogin (false)
+      navigate ('/auth')
   }
 
   useEffect(() => {
@@ -204,7 +204,6 @@ const Profile = () => {
                         </div>
                       </span>
                       <span className="blog-title">{blog.title}</span>
-                      <span className="blogPrologue">{blog.prologue}</span>
                       <div className="bb">
                         <button className="type">{blog.category}</button>
                         <span className="like" onClick={() => setLiked(!liked)}>
@@ -310,7 +309,7 @@ const Profile = () => {
                   <div className="underline"></div>
                 </h5>
                 <div className="socials">
-                  {profile.social_links.instagram &&<span className="instagram"><a href={userDetails.social_links?.instagram} target="__blank">
+                  {profile.social_links?.instagram &&<span className="instagram"><a href={userDetails.social_links?.instagram} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -330,7 +329,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {profile.social_links.youtube &&<span className="youtube"><a href={profile.social_links?.youtube} target="__blank">
+                  {profile.social_links?.youtube &&<span className="youtube"><a href={profile.social_links?.youtube} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -349,7 +348,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {profile.social_links.facebook &&<span className="facebook"><a href={profile.social_links?.facebook} target="__blank">
+                  {profile.social_links?.facebook &&<span className="facebook"><a href={profile.social_links?.facebook} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -368,7 +367,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {profile.social_links.twitter &&<span className="twitter"><a href={profile.social_links?.twitter} target="__blank">
+                  {profile.social_links?.twitter &&<span className="twitter"><a href={profile.social_links?.twitter} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -387,7 +386,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {profile.social_links.github && <span className="github"><a href={profile.social_links?.github} target="__blank">
+                  {profile.social_links?.github && <span className="github"><a href={profile.social_links?.github} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"
@@ -406,7 +405,7 @@ const Profile = () => {
                     </svg>
                         </a>
                   </span>}
-                  {profile.social_links.website &&<span className="website"><a href={profile.social_links?.website} target="__blank">
+                  {profile.social_links?.website &&<span className="website"><a href={profile.social_links?.website} target="__blank">
 
                     <svg
                       class="w-6 h-6 text-gray-800 dark:text-white"

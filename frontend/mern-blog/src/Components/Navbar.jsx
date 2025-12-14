@@ -18,10 +18,11 @@ const Navbar = () => {
 
   const deDebounceQuery = debouncing (query,300);
 
+  // useEffect (()=>{navigate ('/auth')},[])
+
 
   useEffect (()=> {
     const fetchSearch = async ()=> {
-      console.log("ehloewi")
 
       if (deDebounceQuery.trim () === "") {
         setResults ({blogs:[],users:[]});

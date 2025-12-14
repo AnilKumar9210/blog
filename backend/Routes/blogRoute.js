@@ -13,9 +13,10 @@ const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
 
+
 router.post("/post", upload.single("image"), middleware, async (req, res) => {
     try {
-        const { title, prologue, content, category, author,authorId } = req.body;
+        const { title, content, category, author, authorId } = req.body;
 
         console.log("BODY:", req.body);
         console.log("FILE:", req.file);
@@ -33,7 +34,6 @@ router.post("/post", upload.single("image"), middleware, async (req, res) => {
         const newBlog = new Blog({
             authorId,
             title,
-            prologue,
             content,
             imageUrl: result.secure_url,
             category,
@@ -41,7 +41,7 @@ router.post("/post", upload.single("image"), middleware, async (req, res) => {
             userName: existingUser.personal_info.fullName,
             profilePic: existingUser.profile_pic
         });
-        
+
 
         await newBlog.save()
 
@@ -60,134 +60,140 @@ router.post("/post", upload.single("image"), middleware, async (req, res) => {
 );
 
 
-router.get ('/blogs',async (req,res)=> {
+router.get('/blogs', async (req, res) => {
     try {
-        const allBlogs = await Blog.find ();
+        const allBlogs = await Blog.find();
 
-        res.status (200).json ({success:true,allBlogs});
+        res.status(200).json({ success: true, allBlogs });
     } catch (err) {
         console.log(err);
-        res.status (500).json ({message:err.message})
+        res.status(500).json({ message: err.message })
     }
 });
 
 
-router.post ('/getBlogsById',async (req,res)=> {
+router.post('/getBlogsById', async (req, res) => {
     try {
-        const {blogIds} = req.body;
+        const { blogIds } = req.body;
 
-        const blogs = await Blog.find ({_id: {$in:blogIds}});
+        const blogs = await Blog.find({ _id: { $in: blogIds } });
 
-        res.status (200).json ({success:true,blogs});
+        res.status(200).json({ success: true, blogs });
     } catch (error) {
-        res.status (500).json ({error:err.message})
+        res.status(500).json({ error: err.message })
     }
 })
 
 
-router.post ('/like/:blogId',middleware,async (req,res)=> {
-    const io = req.app.get ('io');
+router.post('/like/:blogId', middleware, async (req, res) => {
+    const io = req.app.get('io');
     try {
-        const {userId} = req.body;
-        const {blogId} = req.params;
+        const { userId } = req.body;
+        const { blogId } = req.params;
 
-        const blog = await Blog.findOne ({_id: blogId});
+        const blog = await Blog.findOne({ _id: blogId });
 
-        if (!blog) return res.json ({message:"blog doesn't exist"});
+        if (!blog) return res.json({ message: "blog doesn't exist" });
 
-        if (blog.activity.likedBy.includes (userId)) {
+        if (blog.activity.likedBy.includes(userId)) {
             blog.activity.likes -= 1;
-            blog.activity.likedBy = blog.activity.likedBy.filter (id=> id!== userId);
+            blog.activity.likedBy = blog.activity.likedBy.filter(id => id !== userId);
         } else {
             blog.activity.likes += 1;
-            blog.activity.likedBy.push (userId);
+            blog.activity.likedBy.push(userId);
         }
 
 
-        await blog.save ();
+        await blog.save();
 
-        io.emit ('likeUpdated', {blogId: blogId, likes: blog.activity.likes});
+        io.emit('likeUpdated', { blogId: blogId, likes: blog.activity.likes });
 
-        res.status (200).json ({success:true,message:"sucessfully liked",likes:blog.activity.likes})
+        res.status(200).json({ success: true, message: "sucessfully liked", likes: blog.activity.likes })
     } catch (err) {
-        res.status (500).json ({error:err.message})
+        res.status(500).json({ error: err.message })
     }
 });
 
-router.get ('/trending',async (req,res)=> {
+router.get('/trending', async (req, res) => {
     try {
-        const trendingBlogs = await Blog.find ().sort ({"activity.likes": -1}).limit (10);
-        res.status (200).json ({success:true,trendingBlogs});
+        const trendingBlogs = await Blog.find().sort({ "activity.likes": -1 }).limit(10);
+        res.status(200).json({ success: true, trendingBlogs });
     } catch (e) {
-        res.status (500).json ({success:false,message:e.message});
+        res.status(500).json({ success: false, message: e.message });
     }
 })
 
 
-router.post ('/comment/:blogId',middleware,async (req,res)=> {
-    const io = req.app.get ('io');
+router.post('/comment/:blogId', middleware, async (req, res) => {
+    const io = req.app.get('io');
     try {
-        const {userId, comment} = req.body;
-        const {blogId} = req.params;
+        const { userId, comment } = req.body;
+        const { blogId } = req.params;
 
-        const newComment = new comments ({
+        const newComment = new comments({
             blogId,
             userId,
             comment
         });
 
-        await newComment.save ();
+        await newComment.save();
 
-        await Blog.findOneAndUpdate ({_id:blogId},
-            {$push: {comments:newComment._id}}, 
-            {  new:true  }
+        await Blog.findOneAndUpdate({ _id: blogId },
+            { $push: { comments: newComment._id } },
+            { new: true }
         )
 
-        io.emit ('commentAdded', {blogId: blogId, comment: newComment});
+        io.emit('commentAdded', { blogId: blogId, comment: newComment });
 
-        res.status (201).json ({success:true,message:"comment added successfully",newComment})
+        res.status(201).json({ success: true, message: "comment added successfully", newComment })
 
     } catch (err) {
-        res.status (500).json ({error:err.message})
+        res.status(500).json({ error: err.message })
     }
 });
 
-router.get ('/allComments/:blogId',middleware,async (req,res)=>{
+router.get('/allComments/:blogId', middleware, async (req, res) => {
     try {
-        const {blogId} = req.params;
+        const { blogId } = req.params;
 
-        
 
-        const allComments = await comments.find ({blogId});
 
-        res.status (200).json ({success:true,allComments});
+        const allComments = await comments.find({ blogId });
+
+        res.status(200).json({ success: true, allComments });
     } catch (err) {
-        res.status (500).json ({error:err.message})
+        res.status(500).json({ error: err.message })
     }
-} );
+});
 
-router.post ('/deleteComment/:commentId',middleware,async (req,res)=> {
+router.post('/deleteComment/:commentId', middleware, async (req, res) => {
     try {
-        const {commentId} = req.params;
-        const {blogId} = req.body;
+        const { commentId } = req.params;
+        const { blogId } = req.body;
 
-        const io = req.app.get ('io');
-        const blog = await Blog.findOne ({_id:blogId});
+        const io = req.app.get('io');
+        const blog = await Blog.findOne({ _id: blogId });
 
         if (blog) {
-            blog.comments = blog.comments.filter (id=> id.toString ()!== commentId);
-            await blog.save ();
+            blog.comments = blog.comments.filter(id => id.toString() !== commentId);
+            await blog.save();
         }
 
-        await comments.findOneAndDelete ({_id:commentId})
+        await comments.findOneAndDelete({ _id: commentId })
 
-        io.emit ('commentDeleted', {commentId: commentId});
+        io.emit('commentDeleted', { commentId: commentId });
 
-        res.status (200).json ({success:true,message:"comment deleted successfully"})
+        res.status(200).json({ success: true, message: "comment deleted successfully" })
     } catch (err) {
-        res.status (500).json ({error:err.message})
+        res.status(500).json({ error: err.message })
     }
 })
+
+
+
+
+
+
 
 
 export default router

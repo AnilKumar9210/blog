@@ -1,7 +1,6 @@
-POST http://localhost:3000/blog/post
+POST http://localhost:3000/blog/generate-blog
 Content-Type: application/json
 
 {
-  "title": "helowwe",
-  "prologue": "kjhfds"
+  "topic": "How AI Is Transforming Web Development in 2025"
 }

@@ -76,9 +76,17 @@ const userSchema = mongoose.Schema  ({
     profile_pic : {
         type:String,
         default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzR0bIMZ71HVeR5zF4PihQaDvTQQk6bsVERw&s"
+    },
+    resetOtp: {
+        type:String,
+        default:""
+    },
+    resetOtpExpires : {
+        type:Date,
     }
 
 }, 
+
 { 
     timestamps: {
         createdAt: 'joinedAt'

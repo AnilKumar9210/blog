@@ -4,6 +4,7 @@ import "./Rightsec.css";
 import user from "../assets/user.png";
 import { appContext } from "../Context/context";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Rightsec = () => {
   const [liked, setLiked] = useState(false);
@@ -24,6 +25,11 @@ const Rightsec = () => {
             "Content-Type": "application/json",
           },
         });
+
+        if (!res.ok) {
+          toast.error ("something went wrong")
+          return
+        }
   
         const data = await res.json();
         setBlogs(data.allBlogs);
@@ -87,7 +93,6 @@ const Rightsec = () => {
                   </div>
                 </span>
                 <span className="blog-title">{blog.title}</span>
-                <span className="blogPrologue">{blog.prologue}</span>
                 <div className="bb">
                   <button className="type">{blog.category}</button>
                   <span className="like" onClick={() => setLiked(!liked)}>

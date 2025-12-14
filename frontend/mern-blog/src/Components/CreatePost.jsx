@@ -30,16 +30,14 @@ const CreatePost = () => {
   const [file, setFile] = useState();
 
 
-  useEffect (()=> {
-    if (quill) {
-      quill.root.innerHTML = "<p>Start editing your blog .....</p>"
-    }
-  },[])
-
+ 
 
 
   useEffect(() => {
     if (quill) {
+
+      quill.root.innerHTML = "<p>Start editing your blog .....</p>"
+
       quill.on("text-change", () => {
         console.log(quill.root.innerHTML)
         setContent(quill.root.innerHTML);
@@ -64,7 +62,6 @@ const CreatePost = () => {
     formData.append ('authorId',userDetails._id);
     formData.append ('image',file);
     formData.append('title',postDetails.title);
-    formData.append ('prologue',postDetails.prologue);
     formData.append ('content',content);
     formData.append ('category',postDetails.option);
     formData.append ('author',userDetails.userName);
@@ -112,16 +109,9 @@ const CreatePost = () => {
           placeholder="Title"
           id=""
         />
-        <input
-          type="text"
-          className="input-style"
-          value={postDetails.prologue}
-          onChange={handleForm}
-          name="prologue"
-          placeholder="Prologue"
-        />
+        
         <div>
-          <label class="custum-file-upload" for="file">
+          <label class="custum-file-upload" htmlFor="file">
             <div class="icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -182,9 +172,7 @@ const CreatePost = () => {
         </button>
       </form>
 
-      <div className="pre-sec">
-        <Preview/>
-      </div>
+      
     </div>
   );
 };

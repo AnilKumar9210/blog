@@ -1,4 +1,4 @@
-.authentication {
+.authentication,.forgot {
       position: relative;
       gap: 20px;
     height: 80vh;
@@ -34,6 +34,15 @@
   height: 20px;
 }
 
+.email span {
+  font-size: 12px;
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin-top: 3px;
+    margin-left: 10px;
+}
+
 .email input {
   border: none;
   background-color: transparent;
@@ -62,13 +71,14 @@
 .login button {
   margin: auto;
   border: none;
-  height: 40px;
-  width: 80px;
+  /* height: 40px;
+  width: 80px; */
   font-weight: bold;
   font-size: 16px;
   border-radius: 22px;
   color: white;
   background: black;
+  padding: 12px;
 }
 
 .login button:hover {
@@ -107,3 +117,7 @@
 .google button:hover{
     transform: scale(.9);
 } 
+
+.red {
+  border: 2px solid red;
+}

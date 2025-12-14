@@ -13,7 +13,8 @@ import { profile, timeStamp } from 'console'
 import multer from "multer";
 import cloudinary from './Config/cloudinary.js';
 import comments from './Schema/comments.js'
-import { title } from 'process'
+import crypto from "crypto"
+import sendEmail from './Config/sendMail.js'
 
 const app = express()
 app.use(express.json());
@@ -114,6 +115,69 @@ app.post('/login', async (req, res) => {
         console.log(err)
         res.status(500).json(err)
     }
+})
+
+
+app.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const existingUser = await user.findOne({ "personal_info.email": email });
+    if (!existingUser)
+      return res.status(404).json({ message: "User does not exist" });
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    existingUser.resetOtp = crypto.createHash("sha256").update(otp).digest("hex");
+
+    existingUser.resetOtpExpires = Date.now() + 10 * 60 * 1000;
+
+    await existingUser.save({ validateBeforeSave: false });
+
+    await sendEmail({
+      to: email,
+      subject: "Password Reset OTP",
+      text: `Your OTP for resetting your password is ${otp}. It is valid for 10 minutes.`,
+    });
+
+    res.status(200).json({ message: "OTP sent to your email" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+app.post ('/reset-password',async (req,res)=> {
+  try {
+    const {email,otp,newPassword} = req.body
+
+    const hashedOtp = crypto.createHash ("sha256").update (otp).digest ("hex");
+
+    const existingUser = await user.findOne ({
+      "personal_info.email": email,
+      resetOtp:hashedOtp,
+      resetOtpExpires:{$gt : Date.now ()},
+    });
+
+    console.log("Incoming OTP:", otp);
+console.log("Hashed Incoming:", hashedOtp);
+console.log("Stored OTP:", existingUser?.resetOtp);
+
+
+    if (!existingUser) return res.status (400).json ({message:"Otp expired try again"});
+
+    existingUser.personal_info.password = await bcrypt.hash (newPassword,10);
+    existingUser.resetOtp =  undefined
+    existingUser.resetOtpExpires = undefined
+
+    await existingUser.save ()
+
+    res.status (200).json ({message:"password updated successfully"});
+
+  } catch (error) {
+    res.status (500).json ({error:error.message})
+  }
 })
 
 
