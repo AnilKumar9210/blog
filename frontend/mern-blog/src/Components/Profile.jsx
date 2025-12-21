@@ -104,7 +104,7 @@ const Profile = () => {
       setLoading(true);
       let blogs, data, draft;
       try {
-        const res = await fetch(`http://localhost:3000/user/${userId}`, {
+        const res = await fetch(`https://blog-backend-yk6g.onrender.com/user/${userId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const Profile = () => {
       }
 
       try {
-        const res = await fetch("http://localhost:3000/blog/getBlogsById/", {
+        const res = await fetch("https://blog-backend-yk6g.onrender.com/blog/getBlogsById/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -160,7 +160,7 @@ const Profile = () => {
         setLoading(false);
       }
       try {
-        const res = await fetch("http://localhost:3000/blog/getBlogsById/", {
+        const res = await fetch("https://blog-backend-yk6g.onrender.com/blog/getBlogsById/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -224,7 +224,7 @@ const Profile = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/updateProfile/${userDetails._id}`,
+        `https://blog-backend-yk6g.onrender.com/updateProfile/${userDetails._id}`,
         {
           method: "POST",
           headers: {
@@ -253,7 +253,7 @@ const Profile = () => {
 
   const deleteBlog = async (blogId, userId, isDraft) => {
     try {
-      const res = await fetch("http://localhost:3000/blog/delete-blog", {
+      const res = await fetch("https://blog-backend-yk6g.onrender.com/blog/delete-blog", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
