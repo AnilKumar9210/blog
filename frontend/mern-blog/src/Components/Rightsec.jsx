@@ -47,7 +47,7 @@ const item = {
     setLoading(true);
     async function getBlogs() {
       try {
-        const res = await fetch("http://localhost:3000/blog/blogs", {
+        const res = await fetch("https://blog-backend-yk6g.onrender.com/blog/blogs", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
