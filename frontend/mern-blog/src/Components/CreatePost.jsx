@@ -97,7 +97,7 @@ const CreatePost = () => {
     formData.append("draft", draft);
 
     try {
-      const res = await fetch("http://localhost:3000/blog/post", {
+      const res = await fetch("https://blog-backend-yk6g.onrender.com/blog/post", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
