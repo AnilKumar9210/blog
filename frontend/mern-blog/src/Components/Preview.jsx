@@ -6,7 +6,7 @@ import { appContext } from "../Context/context";
 import io from "socket.io-client";
 import { useLocation } from "react-router-dom";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://blog-backend-yk6g.onrender.com");
 
 const Preview = () => {
   
@@ -43,7 +43,7 @@ const Preview = () => {
   const fetchComments = async (blogId) => {
     setCmtLoading(true);
     const res = await fetch(
-      `http://localhost:3000/blog/allComments/${blogId}`,
+      `https://blog-backend-yk6g.onrender.com/blog/allComments/${blogId}`,
       {
         method: "GET",
         headers: {
@@ -70,7 +70,7 @@ const Preview = () => {
   // }, [])
 
   const postComment = async (blogId) => {
-    const res = await fetch(`http://localhost:3000/blog/comment/${blogId}`, {
+    const res = await fetch(`https://blog-backend-yk6g.onrender.com/blog/comment/${blogId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const Preview = () => {
 
   const handleLike = async (blogId) => {
     // console.log(blogId, userDetails._id);
-    const res = await fetch(`http://localhost:3000/blog/like/${blogId}`, {
+    const res = await fetch(`https://blog-backend-yk6g.onrender.com/blog/like/${blogId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const Preview = () => {
 
   const deleteComment = async (commentId, blogId) => {
     const res = await fetch(
-      `http://localhost:3000/blog/deleteComment/${commentId}`,
+      `https://blog-backend-yk6g.onrender.com/blog/deleteComment/${commentId}`,
       {
         method: "POST",
         headers: {

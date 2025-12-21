@@ -32,7 +32,7 @@ function App() {
     const user = localStorage.getItem("user");
     if (user) {
       setUserDetails(JSON.parse(user));
-      console.log(user);
+      // console.log(user);
     }
   }, []);
 

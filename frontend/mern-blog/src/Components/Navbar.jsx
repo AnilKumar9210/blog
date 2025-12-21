@@ -29,7 +29,7 @@ const Navbar = () => {
         return;
       }
 
-      const res = await fetch (`http://localhost:3000/search?query=${deDebounceQuery}`,{
+      const res = await fetch (`https://blog-backend-yk6g.onrender.com/search?query=${deDebounceQuery}`,{
         method:"GET",
         headers : {
           "Content-Type":"application/json"
