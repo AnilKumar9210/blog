@@ -132,7 +132,7 @@ const item = {
                <span className="blogPrologue">{blog.prologue}</span>
                 <div className="bb">
                   <button className="type">{blog.category}</button>
-                  <span className="like" onClick={() => setLiked(!liked)}>
+                  {/* <span className="like" onClick={() => setLiked(!liked)}>
                     {!liked ? (
                       <svg
                         class="w-6 h-6 text-gray-800 dark:text-white"
@@ -165,7 +165,7 @@ const item = {
                       </svg>
                     )}
                     <span>{blog.likes}</span>
-                  </span>
+                  </span> */}
                 </div>
               </motion.div>
               <img src={blog.imageUrl} alt="" loading="lazy" />

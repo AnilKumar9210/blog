@@ -10,6 +10,9 @@ import { appContext } from "./Context/context";
 import Profile from "./Components/Profile";
 import { jwtDecode } from "jwt-decode";
 import EditDraft from "./Components/EditDraft";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   const { setUserDetails, setIsLogin } = useContext(appContext);
@@ -40,6 +43,7 @@ function App() {
 
   return (
     <>
+    <ToastContainer position="top-right" autoClose={2000} />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

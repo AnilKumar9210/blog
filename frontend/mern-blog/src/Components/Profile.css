@@ -475,15 +475,16 @@ a:hover {
 /* From Uiverse.io by CristianMontoya98 */ 
 
 .logout{
- width: 6.5em;
+ width: 4.5em;
  height: 2.3em;
  margin: 0.5em;
  background: black;
  color: white;
  border: none;
  border-radius: 0.625em;
- font-size: 20px;
- font-weight: bold;
+ /* padding: 5px; */
+ font-size: 16px;
+ /* font-weight: bold; */
  cursor: pointer;
  position: relative;
  z-index: 1;
@@ -580,6 +581,11 @@ a:hover {
     flex-direction: column;
     /* position: absolute; */
     height: 81vh;
+}
+
+.blogs-list>span {
+  width: auto;
+  margin: auto;
 }
 
 .editDraft {

@@ -5,7 +5,7 @@ import search from "../assets/search.png";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../Context/context";
 import debouncing from "./Debounce";
-
+import {motion} from 'framer-motion'
 const Navbar = () => {
   const navigate = useNavigate();
 
@@ -66,7 +66,7 @@ const Navbar = () => {
       <div className="main-bar">
         <img src={logo} alt="" className="logo" onClick={()=> {navigate ('/')}} />
         <div className="auth">
-          <button className="write" onClick={handlePostNav}>
+          <motion.button whileHover={{scale:0.9}} whileTap={{scale:0.85}} className="write" onClick={handlePostNav}>
             <svg
               class="w-6 h-6 text-gray-800 dark:text-white"
               aria-hidden="true"
@@ -85,7 +85,7 @@ const Navbar = () => {
               />
             </svg>
             write
-          </button>
+          </motion.button>
           {!isLogin ? <button
             className="sign-in"
             onClick={() => {
@@ -113,13 +113,19 @@ const Navbar = () => {
           {results.users.length > 0 && <div className="user-results">
           <h5>users : </h5>
             {results.users.map ((user)=>(
-            <span>@{user.personal_info.userName}</span>
+            <span onClick={()=> {
+              setGetUser (!getUser)
+              navigate (`/profile/${user._id}`)
+            }}>@{user.personal_info.userName}</span>
             ))}
           </div>}
           {results.blogs.length > 0 && <div className="blogs-results">
           <h5>posts :</h5>
             {results.blogs.map ((blog)=>(
-            <span>{blog.title}</span>
+            <span onClick={()=> {
+              setGetUser (!getUser)
+              navigate("/view-blog", { state: { blog,from:"blog" } });
+            }}>{blog.title}</span>
             ))}
           </div>}
         </div>}

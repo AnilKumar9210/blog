@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import user from "../assets/user.png";
 import email from "../assets/email.png";
 import arroba from "../assets/arroba.png";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast, ToastContainer } from "react-toastify";
 import { motion } from "framer-motion";
 
 const Profile = () => {
@@ -273,14 +273,15 @@ const Profile = () => {
     }
   };
 
-  return (
+  return (<>
+  <ToastContainer/>
     <section className="user-profile-section">
       {!update ? (
         <div className="profile-section">
           <div className="blogs-posted">
             <div className="blogs-posted-heading">
               <h5>Dashboard</h5>
-              <div class="select-wrapper">
+              {userId === userDetails?._id && <div class="select-wrapper">
                 <select
                   name="option"
                   id="dash"
@@ -291,7 +292,7 @@ const Profile = () => {
                   <option value="blogs">Posts</option>
                   <option value="drafts">Drafts</option>
                 </select>
-              </div>
+              </div>}
             </div>
             <div className="underline"></div>
             {option === "blogs" ? (
@@ -308,7 +309,7 @@ const Profile = () => {
                     <div className="box3"></div>
                   </div>
                 ) : userBlogs.length === 0 ? (
-                  <span>No blogs posted</span>
+                  <span>No blogs posted start creating...</span>
                 ) : (
                   <>
                     {userBlogs.map((blog, index) => (
@@ -980,7 +981,7 @@ const Profile = () => {
         </div>
       )}
     </section>
-  );
+  </>);
 };
 
 export default Profile;

@@ -91,6 +91,8 @@ const Auth = () => {
         return;
       }
 
+      toast.success ("Sign up successfull")
+
       setDetails({ email: "", password: "", username: "" });
 
       setSignIn(true);
@@ -129,6 +131,7 @@ const Auth = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       setIsLogin(true);
+      toast.success ("logged in ")
 
       setDetails({ email: "", password: "", username: "" });
 
@@ -234,6 +237,7 @@ const Auth = () => {
                 onChange={handleChange}
                 name="email"
                 placeholder="Email"
+                value={details.email}
               />
             </motion.div>
             <motion.div className="pass" variants={item}>
@@ -258,6 +262,7 @@ const Auth = () => {
                 name="password"
                 placeholder="Password"
                 onChange={handleChange}
+                value={details.password}
                 id=""
               />
               <div
@@ -308,11 +313,11 @@ const Auth = () => {
               </div>
             </motion.div>
             {signin ? (
-              <motion.button onClick={handleLogin} variants={item}>
+              <motion.button whileTap={{scale:0.85}} onClick={handleLogin} variants={item}>
                 Login
               </motion.button>
             ) : (
-              <motion.button onClick={handleSignIn} variants={item}>
+              <motion.button whileTap={{scale:0.85}} onClick={handleSignIn} variants={item}>
                 Sign in{" "}
               </motion.button>
             )}

@@ -69,27 +69,27 @@ overflow-x: hidden;
   margin: 4px 2px;
     font-size: 1.6rem;
     letter-spacing: 1px;
-    line-height: 3rem;
+    line-height: 1.7rem;
     font-weight: bold;
 }
 
 .userName {
 }
 .blogPrologue {
-      font-size: 1.2rem;
+      font-size: 16px;
     word-spacing: 3px;
-    line-height: 2rem;
+    line-height: 1.5rem;
 }
 
 
 
 .type {
       width: auto;
-    font-size: 17px;
+    font-size: 11px;
     margin: 5px;
     border: none;
     background: #cdcdbd;
-    /* height: 28px; */
+    align-self: flex-start;
     border-radius: 17px;
     cursor: pointer;
     padding: 8px;
