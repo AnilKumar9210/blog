@@ -6,7 +6,7 @@ import { appContext } from "../Context/context";
 import io from "socket.io-client";
 import { useLocation } from "react-router-dom";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://blog-backend-yk6g.onrender.com");
 
 const Preview = () => {
   
