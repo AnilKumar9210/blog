@@ -123,7 +123,7 @@ const EditDraft = () => {
     formData.append("draft", draft);
 
     try {
-      const res = await fetch("http://localhost:3000/blog/post", {
+      const res = await fetch("https://blog-backend-yk6g.onrender.com/blog/post", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -182,7 +182,7 @@ const EditDraft = () => {
 
   try {
     const res = await fetch(
-      `http://localhost:3000/blog/update/${blog._id}`,
+      https://blog-backend-yk6g.onrender.com/blog/update/${blog._id}`,
       {
         method: "PUT",
         headers: {
@@ -213,7 +213,7 @@ const EditDraft = () => {
 const postDraft = async (e)=> {
   e.preventDefault ()
   try {
-    const res = await fetch (`http://localhost:3000/blog/post-draft/${blog._id}`, {
+    const res = await fetch (`https://blog-backend-yk6g.onrender.com/blog/post-draft/${blog._id}`, {
       method:"POST",
       headers : {
         "Content-Type": "application/json",
