@@ -26,7 +26,7 @@ const Leftsec = () => {
     async function fetchTrendings () {
       setTrendLoad (true)
       try {
-        const res = await fetch ("http://localhost:3000/blog/trending", {
+        const res = await fetch ("https://blog-backend-yk6g.onrender.com/blog/trending", {
           method:"GET",
           headers : {
             "Content-Type": "application/json",
