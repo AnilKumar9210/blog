@@ -37,7 +37,7 @@ const uploadProfile = multer({ storage });
 
 mongoose.connect(process.env.DB_LOCATION, { autoIndex: true });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 function generateBaseName (base) {
     const random = Math.random().toString(36).substring (2,7);
