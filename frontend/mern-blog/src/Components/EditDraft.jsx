@@ -182,7 +182,7 @@ const EditDraft = () => {
 
   try {
     const res = await fetch(
-      https://blog-backend-yk6g.onrender.com/blog/update/${blog._id}`,
+      `https://blog-backend-yk6g.onrender.com/blog/update/${blog._id}`,
       {
         method: "PUT",
         headers: {
