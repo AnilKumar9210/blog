@@ -1,15 +1,43 @@
 import React, { useContext, useEffect, useState } from "react";
-import download from "../assets/download.jpeg";
 import "./Rightsec.css";
-import user from "../assets/user.png";
 import { appContext } from "../Context/context";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const Rightsec = () => {
   const [liked, setLiked] = useState(false);
   const [currentBlogs, setCurrentBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1
+    }
+  }
+};
+
+
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 60
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut"
+    }
+  }
+};
+
+
 
   const navigate = useNavigate();
 
@@ -32,9 +60,11 @@ const Rightsec = () => {
         }
   
         const data = await res.json();
-        setBlogs(data.allBlogs);
-        setCurrentBlogs(data.allBlogs || []);
-        console.log(data);
+        let filtered=data.allBlogs.filter ((blog)=> blog.draft === false ||blog.draft === "false") || []
+        setBlogs(filtered);
+        // console.log(data.allBlogs ,data.allBlogs.filter ((blog)=> blog.draft === false) || [])
+        setCurrentBlogs(filtered)
+        // console.log(data);
       } catch  (err) {
         console.error("Error fetching blogs:", err);
       } finally {
@@ -45,27 +75,26 @@ const Rightsec = () => {
     getBlogs();
   }, []);
 
-  useEffect(() => {
-    setCurrentBlogs((prev) => {
-      {
-        if (category === "home") {
-          return blogs;
-        } else {
-          return blogs.filter((blog) => blog.category === category);
-        }
-      }
-    });
-  }, [category]);
+ useEffect(() => {
+  if (category === "home") {
+    setCurrentBlogs(blogs);
+  } else {
+    setCurrentBlogs(
+      blogs.filter((blog) => blog.category === category)
+    );
+  }
+}, [category, blogs]);
+
 
   const handlePageNav = (blog, e) => {
     e.stopPropagation();
-    navigate("/view-blog", { state: { blog } });
+    navigate("/view-blog", { state: { blog,from:"blog" } });
   };
 
   return (
     <div className="right-sec">
       <h4 onClick={() => setCategory("home")}>home</h4>
-      <div className="blogs">
+      <motion.div className="blogs" variants={container} initial="hidden" animate="visible">
         {loading ? (
           <div className="blog-loader">
             <div className="box1"></div>
@@ -74,25 +103,33 @@ const Rightsec = () => {
           </div>
         ) : (
           currentBlogs.map((blog, index) => (
-            <div
+        
+            <motion.div
+            // variants={item}
               className="blog"
-              key={index}
+              key={blog._id}
+              layout={false}
               onClick={(e) => {
                 handlePageNav(blog, e);
               }}
             >
-              <div className="blogContent">
+              {/* {console.log(blog)} */}
+              <motion.div className="blogContent">
                 <span className="all-user">
                   <div className="profilePic">
-                  <img src={blog.profilePic} alt="" />
+                  <img src={blog.profilePic} alt=""/>
                   </div>
-                  <div className="authorDetails">
+                  <div className="authorDetails"  onClick={(e)=> {
+                e.stopPropagation ()
+                navigate (`/profile/${blog.authorId}`)
+              }}>
                   <span className="blogAuthor">{blog.userName}</span>
                   <span className="userName">@{blog.author}</span>
 
                   </div>
                 </span>
                 <span className="blog-title">{blog.title}</span>
+               <span className="blogPrologue">{blog.prologue}</span>
                 <div className="bb">
                   <button className="type">{blog.category}</button>
                   <span className="like" onClick={() => setLiked(!liked)}>
@@ -130,12 +167,12 @@ const Rightsec = () => {
                     <span>{blog.likes}</span>
                   </span>
                 </div>
-              </div>
-              <img src={blog.imageUrl} alt="" />
-            </div>
+              </motion.div>
+              <img src={blog.imageUrl} alt="" loading="lazy" />
+            </motion.div>
           ))
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

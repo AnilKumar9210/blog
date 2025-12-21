@@ -8,7 +8,15 @@
     gap: 12px;
 }
 
+.user-info {
+  align-items: center;
+    display: flex;
+    flex-direction: column;
+}
 
+.user-info span {
+  font-size: 11px;
+}
 
 .user-info h4 {
     margin: 0 ;
@@ -107,13 +115,14 @@ a {
 }
 
 .blogs-posted-heading h5 {
-    margin-left: 22px;
+    margin: 0 0 0 14px;
     position: relative;
     width: 110px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    font-size: 1rem;
 }
 
 .underline {
@@ -502,4 +511,104 @@ a:hover {
  transform: skewX(-45deg) scale(1, 1);
  -webkit-transition: all 0.5s;
  transition: all 0.5s;
+}
+
+.select-wrapper {
+  position: relative;
+  width: 180px;
+}
+
+/* Remove default browser styles */
+.select-wrapper select {
+  width: 100%;
+  padding: 10px 40px 10px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover & focus */
+.select-wrapper select:hover {
+  border-color: #9ca3af;
+}
+
+.select-wrapper select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Custom arrow */
+.select-wrapper::after {
+  content: "▾";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Dark mode (optional) */
+@media (prefers-color-scheme: dark) {
+  
+
+  .select-wrapper::after {
+    color: #9ca3af;
+  }
+}
+
+
+.blogs-posted-heading {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+}
+
+.blogs-list {
+      overflow: scroll;
+    /* opacity: 1; */
+    display: flex;
+    flex-direction: column;
+    /* position: absolute; */
+    height: 81vh;
+}
+
+.editDraft {
+        border: 2px solid #847f7f;
+    position: absolute;
+    right: 30px;
+    /* width: 90px; */
+    margin: auto;
+    top: 20px;
+    display: none;
+    border-radius: 10px;
+    color: #847f7f;
+}
+.editDraft  span {
+  padding: 5px ;
+}
+
+.editDraft span:hover {
+  /* background-color: white; */
+  transform: scale(1.1);
+}
+
+.draftAction:hover,.blog:hover {
+  .editDraft {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.none {
+  display: none;
 }

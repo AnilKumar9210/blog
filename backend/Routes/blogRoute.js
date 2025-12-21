@@ -16,20 +16,20 @@ const upload = multer({ dest: "uploads/" });
 
 router.post("/post", upload.single("image"), middleware, async (req, res) => {
     try {
-        const { title, content, category, author, authorId } = req.body;
+        const { title, content, category, author, authorId, draft,prologue } = req.body;
 
-        console.log("BODY:", req.body);
-        console.log("FILE:", req.file);
-        console.log("USER FROM TOKEN:", req.user);
+        const aId = req.user._id;
 
 
         if (!req.file) {
-            return res.status(400).json({ message: "Image is required" });
+            return res.status(400).json({ message: "Refresh and try again" });
         }
 
         const result = await cloudinary.uploader.upload(req.file.path);
 
-        const existingUser = await user.findOne({ "personal_info.userName": author });
+        const existingUser = await user.findOne({_id:authorId});
+
+        if (!existingUser) return res.status (400).json ({message:"user not found"})
 
         const newBlog = new Blog({
             authorId,
@@ -37,18 +37,22 @@ router.post("/post", upload.single("image"), middleware, async (req, res) => {
             content,
             imageUrl: result.secure_url,
             category,
-            author,
+            prologue,
+            author:existingUser.personal_info.userName,
             userName: existingUser.personal_info.fullName,
-            profilePic: existingUser.profile_pic
+            profilePic: existingUser.profile_pic,
+            draft: draft
         });
 
 
         await newBlog.save()
-
-        await user.findOneAndUpdate({ "personal_info.userName": author },
-            { $push: { blogs: newBlog._id } },
+        const isDraft = draft === "true";
+        const field = !isDraft ? "blogs" : "draft_blogs"
+        await user.findOneAndUpdate({_id:authorId},
+            { $push: { [field]: newBlog._id } },
             { new: true }
         );
+
 
         res.status(201).json({ newBlog });
 
@@ -59,6 +63,69 @@ router.post("/post", upload.single("image"), middleware, async (req, res) => {
 }
 );
 
+router.post('/post-draft/:blogId',middleware, async (req, res) => {
+    try {
+        const {blogId} = req.params
+        const { userId} = req.body;
+
+        
+        const blog = await Blog.findOne({ _id: blogId });
+        
+        if (!blog) return res.status(400).json({ message: "failed to save" });
+        
+        // await user.findOneAndUpdate({ _id: userId },
+        //     { $pull: { draft_blogs: blogId } },
+        // )
+
+        blog.draft = false;
+
+        
+        await user.findOneAndUpdate({ _id: userId },
+            {
+                $push: { blogs: blogId },
+                $pull: { draft_blogs: blogId }
+            },
+        );
+        
+        await blog.save();
+
+        res.status(200).json({ message: "posted successfully" })
+    } catch (e) {
+        res.status(500).json({ error: e.message })
+    }
+});
+
+
+router.post ("/delete-blog" , async (req,res) => {
+    try {
+        const {blogId,userId,draft} = req.body;
+
+        
+        const blog = await Blog.findOne ({_id:blogId});
+        const publicId = blog.imageUrl
+            .split("/")
+            .pop()
+            .split(".")[0];
+
+          await cloudinary.uploader.destroy(publicId);
+        
+        if (!blog) return res.status (400).json ({message:"Can't find the blog"});
+        
+        await Blog.findOneAndDelete ({_id : blogId});
+        
+        const field = draft ? "draft_blogs" : "blogs";
+
+        await user.findOneAndUpdate ({_id:userId},
+            {$pull:{[field]:blogId}}
+        )
+        
+
+        res.status (200).json ({message:"successfully deleted"})
+    } catch (e) {
+        res.status (500).json ({error:e.message})
+    }
+})
+
 
 router.get('/blogs', async (req, res) => {
     try {
@@ -66,7 +133,6 @@ router.get('/blogs', async (req, res) => {
 
         res.status(200).json({ success: true, allBlogs });
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: err.message })
     }
 });
@@ -82,7 +148,64 @@ router.post('/getBlogsById', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: err.message })
     }
-})
+});
+
+
+
+router.put(
+  "/update/:blogId",
+  middleware,
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { blogId } = req.params;
+      const { title, prologue, content, category } = req.body;
+
+      const blog = await Blog.findById(blogId);
+      if (!blog) {
+        return res.status(404).json({ message: "Blog not found" });
+      }
+
+      if (blog.authorId.toString() !== req.user.id.toString()) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+
+      blog.title = title || blog.title;
+      blog.prologue = prologue || blog.prologue;
+      blog.content = content || blog.content;
+      blog.category = category || blog.category;
+
+      if (req.file) {
+        if (blog.imageUrl) {
+          const publicId = blog.imageUrl
+            .split("/")
+            .pop()
+            .split(".")[0];
+
+          await cloudinary.uploader.destroy(publicId);
+        }
+
+        const uploadResult = await cloudinary.uploader.upload(
+          req.file.path,
+          { folder: "blogs" }
+        );
+
+        blog.imageUrl = uploadResult.secure_url;
+      }
+
+      await blog.save();
+
+      res.status(200).json({
+        success: true,
+        message: "Blog updated successfully",
+        blog,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
 
 
 router.post('/like/:blogId', middleware, async (req, res) => {
@@ -116,7 +239,7 @@ router.post('/like/:blogId', middleware, async (req, res) => {
 
 router.get('/trending', async (req, res) => {
     try {
-        const trendingBlogs = await Blog.find().sort({ "activity.likes": -1 }).limit(10);
+        const trendingBlogs = await Blog.find({draft:false}).sort({ "activity.likes": -1 }).limit(10);
         res.status(200).json({ success: true, trendingBlogs });
     } catch (e) {
         res.status(500).json({ success: false, message: e.message });

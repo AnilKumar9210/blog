@@ -2,20 +2,27 @@ import React, { useContext, useEffect, useState } from "react";
 import { useQuill } from "react-quilljs";
 import "quill/dist/quill.snow.css";
 import "./CreatePost.css";
-import { motion, scale } from "framer-motion";
+import { hover, motion, scale } from "framer-motion";
 import { appContext } from "../Context/context";
 import { span } from "framer-motion/client";
 import toast from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 
-const CreatePost = () => {
+const EditDraft = () => {
+
+    const loaction = useLocation ();
+
+    const blog = loaction.state?.blog;
   const [postDetails, setPostDetails] = useState({
-    title: "",
+    title:"",
     prologue: "",
     option: "",
   });
   const [content, setContent] = useState("");
   const [file, setFile] = useState();
   const [draft, setDraft] = useState(false);
+  const [imageUrl,setImageUrl] = useState ('');
+  const [saveChanges,setSaveChanges] = useState (false)
 
   const [saving, setSaving] = useState(false);
 
@@ -23,7 +30,7 @@ const CreatePost = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      tansition: { staggeChildren: 0.15, delayChildred: 1 },
+      transition: { staggeChildren: 0.15, delayChildrend: 1 },
     },
   };
   const item = {
@@ -31,9 +38,7 @@ const CreatePost = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  const { quill, quillRef } = useQuill({
-    placeholder: "Write your blog here.... ",
-  });
+  const { quill, quillRef } = useQuill();
 
   const { userDetails, setUserDetails } = useContext(appContext);
 
@@ -45,16 +50,37 @@ const CreatePost = () => {
     // console.log(JSON.parse(existingUser));
   }, []);
 
-  useEffect(() => {
-    if (quill) {
-      quill.root.innerHTML = "<p>Start editing your blog .....</p>";
+  useEffect (()=> {
+    if (blog) {
+        setPostDetails ({
+            title:blog.title ||"",
+            prologue:blog.prologue || "",
+            option:blog.category || ""
+        });
 
-      quill.on("text-change", () => {
-        console.log(quill.root.innerHTML);
-        setContent(quill.root.innerHTML);
-      });
+        setContent (blog.content || "");
+        setImageUrl (blog.imageUrl || '')
     }
-  }, [quill]);
+  },[blog])
+
+ useEffect(() => {
+  if (!quill) return;
+
+  if (blog?.content) {
+    quill.clipboard.dangerouslyPasteHTML(blog.content);
+  }
+
+  const handler = () => {
+    setContent(quill.root.innerHTML);
+  };
+
+  quill.on("text-change", handler);
+
+  return () => {
+    quill.off("text-change", handler);
+  };
+}, [quill, blog]);
+
 
   const handleForm = (e) => {
     // console.log(e.target.value);
@@ -116,7 +142,6 @@ const CreatePost = () => {
       setContent("");
       setFile(null);
       setDraft(false);
-      quill.root.innerHTML = "<p>Start editing your blog .....</p>";
 
       const data = await res.json();
       // console.log(data);
@@ -127,6 +152,92 @@ const CreatePost = () => {
       toast.success("Successfully Uploading");
     }
   };
+
+  const saveEditedChanges = async (e) => {
+    e.preventDefault ()
+    // console.log("Hellow world")
+
+  // if (!blog?._id) {
+  //   toast.error("Blog ID missing");
+  //   return;
+  // }
+
+  // if (!postDetails.title || !postDetails.prologue || !content) {
+  //   toast.error("Please fill all required fields");
+  //   return;
+  // }
+
+  setSaving(true);
+
+  const formData = new FormData();
+
+  formData.append("title", postDetails.title);
+  formData.append("prologue", postDetails.prologue);
+  formData.append("content", content);
+  formData.append("category", postDetails.option);
+
+  if (file) {
+    formData.append("image", file);
+  }
+
+  try {
+    const res = await fetch(
+      `http://localhost:3000/blog/update/${blog._id}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: formData,
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.message || "Update failed");
+      return;
+    }
+
+    toast("Changes saved successfully ✅");
+    setSaveChanges (true)
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong");
+  } finally {
+    setSaving(false);
+  }
+};
+
+
+const postDraft = async (e)=> {
+  e.preventDefault ()
+  try {
+    const res = await fetch (`http://localhost:3000/blog/post-draft/${blog._id}`, {
+      method:"POST",
+      headers : {
+        "Content-Type": "application/json",
+        Authorization : `Bearer ${localStorage.getItem ('token')}`
+      },
+      body : JSON.stringify ({
+        userId:userDetails._id
+      })
+    });
+
+    if (!res.ok) {
+      toast.error ("Something went wrong");
+      return
+    }
+
+    const data = await res.json ();
+    // console.log(data);
+    toast.success (data.message)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 
   return (
     <motion.div
@@ -140,32 +251,13 @@ const CreatePost = () => {
       </motion.h1>
       <motion.div className="actions">
         <div className="draft">
-          <div class="checkbox-wrapper-46">
-            <input
-              type="checkbox"
-              id="cbx-46"
-              checked={draft}
-              class="inp-cbx"
-              onChange={(e) => {
-                // console.log(e.target.checked);
-                setDraft(e.target.checked);
-              }}
-            />
-            <label for="cbx-46" class="cbx">
-              <span>
-                <svg viewBox="0 0 12 10" height="10px" width="12px">
-                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                </svg>
-              </span>
-              <span>Save as draft</span>
-            </label>
-          </div>
+          <motion.button className="write">save changes</motion.button>
         </div>
         <button className="write" variants={item}>
           preview
         </button>
       </motion.div>
-      <form onSubmit={handlePostBlog}>
+      <form >
         <motion.input
           variants={item}
           type="text"
@@ -231,7 +323,7 @@ const CreatePost = () => {
           </motion.label>
           <motion.div className="dropdown" variants={item}>
             <span>category :</span>
-            <select name="option" onChange={handleForm} id="">
+            <select name="option" value={postDetails.option} onChange={handleForm} id="">
               <option value="">--choose--</option>
               <option value="Programming">Programming</option>
               <option value="Hollywood">Hollywood</option>
@@ -250,11 +342,18 @@ const CreatePost = () => {
           variants={item}
         ></motion.div>
         
-        <motion.button whileTap={{scale:0.85}} whileHover={{scale:1.1}} className="postBtn" type="submit" variants={item} onClick={handlePostBlog}>post</motion.button>
+        <motion.button 
+        whileTap={{scale:0.85}} 
+        whileHover={{scale:1.1}} 
+        className="postBtn" 
+        type="button" 
+        onClick={saveChanges ? postDraft : saveEditedChanges}
+        variants={item}
+        >{saveChanges ? "Post" : "Save"}</motion.button>
         
       </form>
     </motion.div>
   );
 };
 
-export default CreatePost;
+export default EditDraft;

@@ -47,7 +47,6 @@ function generateBaseName (base) {
 app.post('/signup', async (req, res) => {
     let { fullName, email, password } = req.body;
     try {
-        console.log(req.body)
         const hashedPass = await bcrypt.hash(password, 10);
 
         const userExists = await user.findOne ({"personal_info.email":email});
@@ -78,12 +77,10 @@ app.post('/signup', async (req, res) => {
                 blogs: []
             })
 
-        console.log(hashedPass, newUser)
         await newUser.save()
 
         res.status(200).json({ message: "successful" });
     } catch (err) {
-        console.log(err)
         res.status(500).json({error:err.message})
     }
 
@@ -112,7 +109,6 @@ app.post('/login', async (req, res) => {
             user: existingUser
         })
     } catch (err) {
-        console.log(err)
         res.status(500).json(err)
     }
 })
@@ -160,9 +156,6 @@ app.post ('/reset-password',async (req,res)=> {
       resetOtpExpires:{$gt : Date.now ()},
     });
 
-    console.log("Incoming OTP:", otp);
-console.log("Hashed Incoming:", hashedOtp);
-console.log("Stored OTP:", existingUser?.resetOtp);
 
 
     if (!existingUser) return res.status (400).json ({message:"Otp expired try again"});
@@ -198,7 +191,7 @@ export const uploadToCloudinary = (fileBuffer, folder) => {
 
 app.post(
   "/updateProfile/:userId",
-  uploadProfile.single("profile_pic"),  // MUST MATCH formData.append("profile_pic")
+  uploadProfile.single("profile_pic"),  
   async (req, res) => {
     try {
       const { userId } = req.params;
@@ -289,7 +282,6 @@ app.get ('/user/:userId', async (req,res)=> {
 
     res.status (200).json ({success:true,userProfile})
   } catch (error) {
-    console.log(error)
     res.status (500).json ({success:false,error:error.message})
   }
 })

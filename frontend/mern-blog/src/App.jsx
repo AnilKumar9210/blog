@@ -9,6 +9,7 @@ import Preview from "./Components/Preview";
 import { appContext } from "./Context/context";
 import Profile from "./Components/Profile";
 import { jwtDecode } from "jwt-decode";
+import EditDraft from "./Components/EditDraft";
 
 function App() {
   const { setUserDetails, setIsLogin } = useContext(appContext);
@@ -46,6 +47,7 @@ function App() {
         <Route path="/create-post" element={<CreatePost />} />
         <Route path="/view-blog" element={<Preview />} />
         <Route path="/profile/:userId" element={<Profile />} />
+        <Route path="/edit-draft" element={<EditDraft/>} />
       </Routes>
     </>
   );

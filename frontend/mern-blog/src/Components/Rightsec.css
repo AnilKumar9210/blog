@@ -6,11 +6,13 @@
     border-radius: 26px;
     margin: 15px;
     padding: 15px;
-    background: #f7f7f6
+    background: #f7f7f6;
+    position: relative;
 }
 .right-sec {
-    height: 80vh;
-    position: relative; 
+    height: inherit;
+    position: relative;
+    overflow-y: scroll; 
 }
 
 .right-sec>h4 {
@@ -29,8 +31,8 @@ overflow-x: hidden;
 }
 
 .profilePic img {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   object-fit: cover;
   position: relative;
@@ -38,8 +40,8 @@ overflow-x: hidden;
 }
 
 .profilePic {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   position: relative;
 }
 
@@ -75,7 +77,6 @@ overflow-x: hidden;
 }
 .blogPrologue {
       font-size: 1.2rem;
-    letter-spacing: 1px;
     word-spacing: 3px;
     line-height: 2rem;
 }
@@ -120,6 +121,7 @@ overflow-x: hidden;
 }
 
 .authorDetails {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   margin-left: 8px;
@@ -127,7 +129,6 @@ overflow-x: hidden;
 
 .blogAuthor {
   font-weight: 600;
-  font-size: 1.1rem;
 }
 
 .blog-loader {

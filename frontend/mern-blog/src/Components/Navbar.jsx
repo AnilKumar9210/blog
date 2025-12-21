@@ -36,7 +36,7 @@ const Navbar = () => {
         }
       });
       const data = await res.json ()
-      console.log(data)
+      // console.log(data)
       setResults (data)
     }
 
@@ -64,7 +64,7 @@ const Navbar = () => {
   return (
     <nav>
       <div className="main-bar">
-        <img src={logo} alt="" className="logo" />
+        <img src={logo} alt="" className="logo" onClick={()=> {navigate ('/')}} />
         <div className="auth">
           <button className="write" onClick={handlePostNav}>
             <svg
@@ -96,6 +96,7 @@ const Navbar = () => {
           </button> : <div className="width">
 
           <img src={userDetails?.profile_pic} alt="user" onClick={()=>{
+            localStorage.setItem ("profilId",JSON.stringify (userDetails._id))
             navigate (`/profile/${userDetails._id}`,)}}/>
             </div>
             }
@@ -105,7 +106,7 @@ const Navbar = () => {
         <input type="text" name="search" placeholder="search here" onChange={(e)=> {
           setGetUser (true);
           if (e.target.value === "") setGetUser (false)
-          console.log(e.target.value)
+          // console.log(e.target.value)
           setQuery (e.target.value)}} />
         <img src={search} alt="" className="search-logo" />
         {(getUser) &&<div className="search-results">

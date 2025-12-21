@@ -1,11 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Leftsec.css";
-import  user from '../assets/user.png'
+import {motion} from 'framer-motion'
 import { appContext } from "../Context/context";
+import { useNavigate } from "react-router-dom";
 
 const Leftsec = () => {
 
   const {setCategory} = useContext (appContext);
+
+  const navigate = useNavigate ()
+
+  const  container = {
+    hidden:{opacity:0},
+    visible :{opacity :1,tansition:{staggeChildren:0.15, delayChildred:1}}
+  }
+  const  item = {
+    hidden:{opacity:0,y:60},
+    visible :{opacity :1,y:0}
+  }
 
   const [trendings,setTrendings] = useState ([]);
   const [trendLoad,setTrendLoad] = useState (false);
@@ -22,7 +34,7 @@ const Leftsec = () => {
         })
         const data = await res.json ();
         setTrendings (data.trendingBlogs);
-        console.log (data);
+        // console.log (data);
       } catch (e) {
         console.log(e)
       } finally {
@@ -68,20 +80,35 @@ const Leftsec = () => {
           />
         </svg>
       </h3>
-      <div className="trending">
+      <motion.div className="trending" variants={container} initial="hidden" animate="visible">
         {trendLoad ? (
-          <p>Loading...</p>
+          <div class="loader">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
         ) : (
           trendings.map((blog, index) => (
-            <div key={blog._id} className="trending-card">
+            <motion.div key={blog._id} className="trending-card" variants={item}>
               <div className="trending-number">{index + 1}</div>
-              <div className="trending-blog">
+              <div className="trending-blog" onClick={(e)=> {
+                e.stopPropagation ();
+                e.preventDefault ()
+                navigate ("/view-blog",{state : {blog,from:'blog'}})
+              }}
+              >
                 <span className="all-user">
                   <div className="profilePic">
 
                   <img src={blog.profilePic} alt="" />
                   </div>
-              <div className="authorDetails">
+              <div className="authorDetails" onClick={(e)=> {
+                e.stopPropagation ()
+                navigate (`/profile/${blog.authorId}`,)
+              }}>
                   <span className="blogAuthor">{blog.userName}</span>
                   <span className="userName">@{blog.author}</span>
 
@@ -89,9 +116,9 @@ const Leftsec = () => {
             </span>
             <span className="trending-blog-title">{blog.title}</span>
           </div>
-        </div>))
+        </motion.div>))
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

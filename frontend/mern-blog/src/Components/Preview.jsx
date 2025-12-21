@@ -12,7 +12,7 @@ const Preview = () => {
   
     const location = useLocation();
   
-    const { blog } = location.state || {};
+    const { blog , from} = location.state || {};
 
 
   const [liked, setLiked] = useState(false);
@@ -83,13 +83,13 @@ const Preview = () => {
     });
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
   };
 
   // handling likes of blogs
 
   const handleLike = async (blogId) => {
-    console.log(blogId, userDetails._id);
+    // console.log(blogId, userDetails._id);
     const res = await fetch(`http://localhost:3000/blog/like/${blogId}`, {
       method: "POST",
       headers: {
@@ -104,7 +104,7 @@ const Preview = () => {
     const data = await res.json();
     setLiked(data.success);
     setLikeCount(data.likes);
-    console.log(data);
+    // console.log(data);
   };
 
   // Deleting comments
@@ -124,7 +124,7 @@ const Preview = () => {
       }
     );
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
   };
 
   useEffect(() => {
@@ -178,7 +178,7 @@ const Preview = () => {
           dangerouslySetInnerHTML={{ __html: blog?.content }}
         />
         <div className="line"></div>
-        <div className="hold-interactions">
+        <div className={`${from === 'blog'?"hold-interactions" : 'none'}`}>
           <div className="blog-author">
             <span className="img">
               <div className="full">
