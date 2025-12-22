@@ -28,9 +28,10 @@ function App() {
     const token = localStorage.getItem("token");
 
     if (!token || !isTokenExpired(token)) {
-      localStorage.removeItem("token");
-      setIsLogin(false);
-      navigate("/auth");
+      // localStorage.removeItem("token");
+      // setIsLogin(false);
+      // navigate("/auth");
+      return
     }
     const user = localStorage.getItem("user");
     if (user) {

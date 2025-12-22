@@ -53,11 +53,7 @@ const Navbar = () => {
     }
   }
 
-  const handleLogout = ()=> {
-    // console.log(localStorage.getItem ('token')) 
-    localStorage.removeItem ('token');
-    setIsLogin (false)
-  }
+
 
 
 

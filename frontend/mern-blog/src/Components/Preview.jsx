@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import profile from "../assets/user.png";
 import { appContext } from "../Context/context";
 import io from "socket.io-client";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const socket = io("https://blog-backend-yk6g.onrender.com");
 
@@ -13,6 +13,8 @@ const Preview = () => {
     const location = useLocation();
   
     const { blog , from} = location.state || {};
+
+    const navigate = useNavigate ()
 
 
   const [liked, setLiked] = useState(false);
@@ -24,7 +26,7 @@ const Preview = () => {
 
   const [cmtLoading, setCmtLoading] = useState(false);
 
-  const { userDetails } = useContext(appContext);
+  const { userDetails,isLogin } = useContext(appContext);
 
   const share = async () => {
     const url = window.location.href;
@@ -70,6 +72,10 @@ const Preview = () => {
   // }, [])
 
   const postComment = async (blogId) => {
+    if (!isLogin) {
+      navigate ('/auth')
+      return
+    }
     const res = await fetch(`https://blog-backend-yk6g.onrender.com/blog/comment/${blogId}`, {
       method: "POST",
       headers: {
@@ -89,6 +95,10 @@ const Preview = () => {
   // handling likes of blogs
 
   const handleLike = async (blogId) => {
+    if (!isLogin) {
+      navigate ('/auth')
+      return
+    }
     // console.log(blogId, userDetails._id);
     const res = await fetch(`https://blog-backend-yk6g.onrender.com/blog/like/${blogId}`, {
       method: "POST",
@@ -350,7 +360,7 @@ const Preview = () => {
             <div>
               <span>
                 <img
-                  src="https://miro.medium.com/v2/resize:fill:40:40/1*dmbNkD5D-u45r44go_cf0g.png"
+                  src={userDetails?.profile_pic}
                   alt=""
                 />
               </span>

@@ -252,7 +252,7 @@
   width: 35px;
   height: 35px;
   flex-direction: column;
-  outline: 1px solid black;
+  /* outline: 1px solid black; */
   border-radius: 50%;
 }
 
@@ -272,11 +272,11 @@
 
 /* From Uiverse.io by mpody11 */
 .messageBox {
-  width: fit-content;
+  /* width: fit-content; */
   height: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #ffffff;
   padding: 0 15px;
   border-radius: 10px;
@@ -342,7 +342,7 @@
   transition: all 0.3s;
 }
 #messageInput {
-  width: 200px;
+  width: 90%;
   height: 100%;
   background-color: transparent;
   outline: none;
@@ -384,14 +384,14 @@
   position: fixed;
   top: 0;
   right: 0;
-  height: 100vh;
+  height: 96vh;
   width: 320px;
   background: #fff;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
   transform: translateX(100%); /* hidden */
   transition: transform 0.3s ease;
   z-index: 999;
-  padding: 20px;
+  padding: 15px;
 }
 
 /* When open */
@@ -508,7 +508,7 @@
 
 .comments {
   height: 65%;
-  overflow: scroll;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
 }
